@@ -106,7 +106,7 @@ import { Link } from 'react-router-dom';
 import { FiArrowRight, FiPhone } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 
-const WA_NUMBER = '919876543210';
+const WA_NUMBER = '917397849730';
 const WA_MESSAGE = encodeURIComponent('Hello,\nI am interested in your paper board products.\nPlease share more details.');
 
 export function CTA() {

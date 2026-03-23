@@ -13,13 +13,15 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 
+
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAl8PHbEFc-e15zzHTq_hIM6gikxv5meGU",
+  authDomain: "pant-krupa-paperboard.firebaseapp.com",
+  projectId: "pant-krupa-paperboard",
+  storageBucket: "pant-krupa-paperboard.firebasestorage.app",
+  messagingSenderId: "924556723281",
+  appId: "1:924556723281:web:3cff254321c0d486b0a470",
+  measurementId: "G-Z2Y4ZZD09C"
 };
 
 const app = initializeApp(firebaseConfig);
