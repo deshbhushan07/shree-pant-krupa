@@ -19,7 +19,9 @@ export default function Blog() {
   const [blogs, setBlogs] = useState(DEMO_BLOGS);
 
   useEffect(() => {
-    getBlogs({ status: 'published' }).then(d => { if (d.length > 0) setBlogs(d); }).catch(() => {});
+    getBlogs({ status: 'published' })
+      .then(d => setBlogs(d.length > 0 ? d : DEMO_BLOGS))
+      .catch(() => {});
   }, []);
 
   return (

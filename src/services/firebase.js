@@ -1,18 +1,7 @@
-// src/services/firebase.js
-// ================================================
-// SETUP INSTRUCTIONS:
-// 1. Go to https://console.firebase.google.com
-// 2. Create a new project: "pant-krupa-paperboard"
-// 3. Add a Web App and copy your firebaseConfig
-// 4. Enable Firestore Database
-// 5. Replace the config below with your actual values
-// ================================================
-
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyAl8PHbEFc-e15zzHTq_hIM6gikxv5meGU",

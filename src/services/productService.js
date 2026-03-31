@@ -13,12 +13,18 @@ export const getProducts = async (options = {}) => {
     let q = collection(db, COLLECTION);
     const constraints = [];
     if (options.category) constraints.push(where('category', '==', options.category));
-    if (options.featured) constraints.push(where('featured', '==', true));
-    constraints.push(orderBy('createdAt', 'desc'));
     if (options.limit) constraints.push(limit(options.limit));
-    q = query(q, ...constraints);
+    if (constraints.length > 0) q = query(q, ...constraints);
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    let results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if (options.featured) results = results.filter(p => p.featured === true);
+    // sort in JS to avoid Firestore index issues
+    results.sort((a, b) => {
+      const at = a.createdAt?.seconds || 0;
+      const bt = b.createdAt?.seconds || 0;
+      return bt - at;
+    });
+    return results;
   } catch (error) {
     console.error('Error fetching products:', error);
     return [];

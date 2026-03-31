@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import DataGrid from '../components/DataGrid';
 import FormModal, { FormInput, FormTextarea, FormSelect } from '../components/FormModal';
 import { getBlogs, addBlog, updateBlog, deleteBlog } from '../../services/blogService';
+import ImageUploader from '../components/ImageUploader';
 
 const EMPTY = { title: '', slug: '', author: 'Admin', content: '', tags: '', status: 'draft', featuredImage: '' };
 const STATUS_OPTS = [{ value: 'draft', label: 'Draft' }, { value: 'published', label: 'Published' }, { value: 'unpublished', label: 'Unpublished' }];
@@ -80,7 +81,12 @@ export default function AdminBlog() {
           <div className="col-6"><FormInput label="Author" name="author" value={form.author} onChange={handle} /></div>
           <div className="col-6"><FormSelect label="Status" name="status" value={form.status} onChange={handle} options={STATUS_OPTS} /></div>
         </div>
-        <FormInput label="Featured Image URL (Cloudinary)" name="featuredImage" value={form.featuredImage} onChange={handle} placeholder="https://res.cloudinary.com/..." />
+       <ImageUploader
+          folder="blog"
+          label="Featured Image"
+          value={form.featuredImage}
+          onChange={(url) => setForm(f => ({ ...f, featuredImage: url }))}
+        />
         <FormTextarea label="Content" name="content" value={form.content} onChange={handle} rows={8} placeholder="Write your blog content here..." />
         <FormInput label="Tags (comma separated)" name="tags" value={form.tags} onChange={handle} placeholder="e.g. Packaging, GSM, Tips" />
       </FormModal>

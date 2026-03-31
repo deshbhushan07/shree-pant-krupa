@@ -23,7 +23,9 @@ export default function Gallery() {
   const [lightbox, setLightbox] = useState(null);
 
   useEffect(() => {
-    getGallery().then(d => { if (d.length > 0) setItems(d); }).catch(() => {});
+    getGallery()
+      .then(d => { if (d.length > 0) setItems(d); })
+      .catch(() => {});
   }, []);
 
   const categories = ['All', ...new Set(items.map(i => i.category).filter(Boolean))];

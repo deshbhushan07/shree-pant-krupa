@@ -78,7 +78,17 @@ export default function Footer() {
       <div className="footer-bottom">
         <div className="container">
           <div className="d-flex flex-wrap justify-content-between align-items-center gap-2">
-            <span>© {year} Shri Pant Krupa Paper Board. All rights reserved.</span>
+           <span>© {year} Shri Pant Krupa Paper Board. All rights reserved.
+                    {' · '}
+                      <Link
+                         to="/admin/login"
+                          style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                          onMouseEnter={e => e.currentTarget.style.color = 'rgba(200,150,62,0.7)'}
+                          onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.2)'}
+                      >
+                           Admin
+                      </Link>
+            </span>
             <span>
               Proprietor: <strong style={{ color: 'rgba(255,255,255,0.7)' }}>Omkar Shrikant Patil</strong>
             </span>

@@ -4,6 +4,7 @@ import { FiImage } from 'react-icons/fi';
 import DataGrid from '../components/DataGrid';
 import FormModal, { FormInput, FormSelect } from '../components/FormModal';
 import { getGallery, addGalleryItem, deleteGalleryItem } from '../../services/enquiryService';
+import ImageUploader from '../components/ImageUploader';
 
 const CAT_OPTS = [
   { value: 'Products', label: 'Products' },
@@ -59,7 +60,12 @@ export default function AdminGallery() {
       <FormModal show={modal} onClose={() => setModal(false)} title="Add Gallery Image" onSubmit={submit} loading={loading}>
         <FormInput label="Image Title" name="title" value={form.title} onChange={handle} required placeholder="e.g. Kraft Paper Production" />
         <FormSelect label="Category" name="category" value={form.category} onChange={handle} options={CAT_OPTS} />
-        <FormInput label="Image URL (Cloudinary)" name="image" value={form.image} onChange={handle} required placeholder="https://res.cloudinary.com/YOUR_CLOUD/..." />
+        <ImageUploader
+          folder="gallery"
+          label="Gallery Image"
+          value={form.image}
+          onChange={(url) => setForm(f => ({ ...f, image: url }))}
+        />
         {form.image && (
           <div style={{ marginTop: '0.75rem' }}>
             <img src={form.image} alt="Preview" style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }} />

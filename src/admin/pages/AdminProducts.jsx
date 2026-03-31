@@ -5,8 +5,9 @@ import FormModal, { FormInput, FormTextarea, FormSelect, FormField } from '../co
 import { getProducts, addProduct, updateProduct, deleteProduct } from '../../services/productService';
 import { getCategories } from '../../services/enquiryService';
 import { FiLayers } from 'react-icons/fi';
+import ImageUploader from '../components/ImageUploader';
 
-const EMPTY = { name: '', slug: '', category: '', gsm: '', width: '', description: '', applications: '', featured: false };
+const EMPTY = { name: '', slug: '', category: '', gsm: '', width: '', priceRange: '', description: '', applications: '', images: [], featured: false };
 
 export default function AdminProducts() {
   const [data, setData] = useState([]);
@@ -27,7 +28,11 @@ export default function AdminProducts() {
   const openAdd = () => { setEditing(null); setForm(EMPTY); setModal(true); };
   const openEdit = row => {
     setEditing(row);
-    setForm({ ...EMPTY, ...row, applications: Array.isArray(row.applications) ? row.applications.join(', ') : row.applications || '' });
+    setForm({
+      ...EMPTY, ...row,
+      applications: Array.isArray(row.applications) ? row.applications.join(', ') : row.applications || '',
+      images: row.images || []
+    });
     setModal(true);
   };
 
@@ -38,6 +43,7 @@ export default function AdminProducts() {
         ...form,
         applications: form.applications.split(',').map(s => s.trim()).filter(Boolean),
         featured: Boolean(form.featured),
+        images: form.images || [],
       };
       if (editing) await updateProduct(editing.id, payload);
       else await addProduct(payload);
@@ -80,8 +86,17 @@ export default function AdminProducts() {
               ].filter((opt, i, arr) => arr.findIndex(x => x.value === opt.value) === i)}
             />
           </div>
-          <div className="col-3"><FormInput label="GSM Range" name="gsm" value={form.gsm} onChange={handle} placeholder="e.g. 70-200" /></div>
-          <div className="col-3"><FormInput label="Width" name="width" value={form.width} onChange={handle} placeholder="e.g. 18-72 inch" /></div>
+        <div className="col-4"><FormInput label="GSM Range" name="gsm" value={form.gsm} onChange={handle} placeholder="e.g. 70-200" /></div>
+          <div className="col-4"><FormInput label="Width" name="width" value={form.width} onChange={handle} placeholder="e.g. 18-72 inch" /></div>
+          <div className="col-4"><FormInput label="Price Range (₹/kg)" name="priceRange" value={form.priceRange} onChange={handle} placeholder="e.g. ₹45-60/kg" /></div>
+          <div className="col-12">
+            <ImageUploader
+              folder="products"
+              label="Product Image"
+              value={form.images?.[0] || ''}
+              onChange={(url) => setForm(f => ({ ...f, images: url ? [url] : [] }))}
+            />
+          </div>
           <div className="col-12"><FormTextarea label="Description" name="description" value={form.description} onChange={handle} rows={3} /></div>
           <div className="col-12"><FormInput label="Applications (comma separated)" name="applications" value={form.applications} onChange={handle} placeholder="e.g. Packaging, Wrapping, Bags" /></div>
           <div className="col-12">

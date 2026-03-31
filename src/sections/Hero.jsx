@@ -1,43 +1,52 @@
-// src/sections/Hero.jsx
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiPhone } from 'react-icons/fi';
 import { FaIndustry } from 'react-icons/fa';
+
+const PRODUCTS = [
+  { num: '01', name: 'Kraft Board Paper Roll', gsm: '200 – 550 GSM' },
+  { num: '02', name: 'Mill Board Paper Roll',  gsm: '200 – 550 GSM' },
+];
 
 export default function Hero() {
   return (
     <section className="hero-section">
       <div className="hero-pattern" />
-      <div className="container">
+      <div className="container hero-container">
         <div className="row align-items-center">
-          <div className="col-lg-6">
+
+          {/* LEFT */}
+          <div className="col-lg-7">
             <div className="hero-content">
               <div className="hero-eyebrow">
-                <FaIndustry size={10} />
+                <FaIndustry size={9} />
                 Est. Paper Board Manufacturer · Kolhapur
               </div>
+
               <h1 className="hero-title">
                 Premium Quality
                 <span className="accent-word">Paper Boards</span>
                 For Every Industry
               </h1>
+
               <p className="hero-subtitle">
-                Shri Pant Krupa Paper Board delivers high-grade Kraft Paper, Mill Board, and Duplex Board 
+                Shri Pant Krupa Paper Board delivers high-grade Kraft Paper, Mill Board, and Duplex Board
                 to packaging industries across India. Quality you can trust, supply you can count on.
               </p>
-              <div className="d-flex flex-wrap gap-3">
+
+              <div className="d-flex flex-wrap gap-2">
                 <Link to="/products" className="btn-accent-custom">
-                  Explore Products <FiArrowRight size={16} />
+                  Explore Products <FiArrowRight size={15} />
                 </Link>
-                <Link to="/contact" className="btn-outline-custom" style={{ borderColor: 'rgba(255,255,255,0.4)', color: '#fff' }}>
-                  <FiPhone size={16} /> Get Quote
+                <Link to="/contact" className="btn-outline-custom hero-btn-outline">
+                  <FiPhone size={15} /> Get Quote
                 </Link>
               </div>
 
               <div className="hero-stats">
                 {[
-                  { num: '500+', label: 'Happy Clients' },
-                  { num: '15+', label: 'Years Experience' },
-                  { num: '50+', label: 'Product Varieties' },
+                  { num: '500+',     label: 'Happy Clients' },
+                  { num: '15+',      label: 'Years Experience' },
+                  { num: '50+',      label: 'Product Varieties' },
                   { num: 'PAN India', label: 'Delivery' },
                 ].map(s => (
                   <div key={s.label}>
@@ -49,32 +58,36 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="col-lg-6 d-none d-lg-block">
-            <div className="hero-image-panel">
-              <div className="hero-image-bg">
-                <div className="hero-paper-visual">
-                  {['Kraft Paper Roll — 70-200 GSM', 'Mill Board — 200-600 GSM', 'Duplex Board — 250-450 GSM', 'Grey Board — 400-2000 GSM'].map((label, i) => (
-                    <div key={i} className="paper-roll">
-                      <div className="paper-roll-inner" />
-                      <span>{label}</span>
+          {/* RIGHT */}
+          <div className="col-lg-5 d-none d-lg-block">
+            <div className="hero-panel-wrap">
+              <div className="hero-panel-header">Our Products</div>
+
+              {PRODUCTS.map((p) => (
+                <Link to="/products" key={p.num} className="hero-tile">
+                  <div className="hero-tile-num">{p.num}</div>
+                  <div>
+                    <div className="hero-tile-name">{p.name}</div>
+                    <div className="hero-tile-meta">
+                      <span className="hero-tile-gsm">{p.gsm}</span>
+                      <span className="hero-tile-dot" />
+                      <span className="hero-tile-stock">In Stock</span>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                  <div className="hero-tile-arrow">→</div>
+                </Link>
+              ))}
 
-              <div className="hero-card-float card-1">
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Quality Grade</div>
-                <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', color: 'var(--primary-dark)', fontWeight: 700 }}>ISI Certified</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--accent)' }}>✓ Premium Grade</div>
-              </div>
-
-              <div className="hero-card-float card-2">
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>GSM Range</div>
-                <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', color: 'var(--primary-dark)', fontWeight: 700 }}>70 – 2000 GSM</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-mid)' }}>All board types</div>
+              <div className="hero-panel-footer">
+                <span className="hpf-text">Kolhapur, Maharashtra · PAN India Delivery</span>
+                <span className="hpf-live">
+                  <span className="hpf-dot" />
+                  Live Stock
+                </span>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

@@ -7,6 +7,7 @@ import { getProducts } from '../services/productService';
 import { getCategories } from '../services/enquiryService';
 import { CTA } from '../sections/IndustriesSection';
 import { useScrollAnimation } from '../hooks/useAnimations';
+import { useSearchParams } from 'react-router-dom';
 
 const DEMO_PRODUCTS = [
   { id: '1', name: 'Kraft Paper Roll', slug: 'kraft-paper-roll', category: 'Kraft Paper', gsm: '70-200', width: '18-72 inch', description: 'High tensile strength brown kraft paper rolls for packaging, wrapping and industrial use.', images: [] },
@@ -21,14 +22,20 @@ const DEMO_PRODUCTS = [
 
 export default function Products() {
   useScrollAnimation();
-  const [products, setProducts] = useState(DEMO_PRODUCTS);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [searchParams] = useState(() => new URLSearchParams(window.location.search));
+  const [activeCategory, setActiveCategory] = useState(() => {
+    return new URLSearchParams(window.location.search).get('category') || 'All';
+  });
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    getProducts().then(d => { if (d.length > 0) setProducts(d); }).catch(() => {});
-    getCategories().then(c => setCategories(c)).catch(() => {});
+    getProducts()
+      .then(d => setProducts(d))
+      .catch(() => setProducts([]))
+      .finally(() => setLoading(false));
   }, []);
 
   const allCategories = ['All', ...new Set(products.map(p => p.category).filter(Boolean))];
@@ -86,9 +93,14 @@ export default function Products() {
             </div>
           </div>
 
-          {filtered.length === 0 ? (
+          {loading ? (
             <div className="text-center py-5">
-              <p style={{ color: 'var(--text-light)' }}>No products found. Try a different filter.</p>
+              <div className="spinner-border" style={{ color: 'var(--primary)' }} />
+              <p style={{ color: 'var(--text-light)', marginTop: '1rem' }}>Loading products...</p>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-5">
+              <p style={{ color: 'var(--text-light)' }}>No products found.</p>
             </div>
           ) : (
             <div className="row g-4">

@@ -26,9 +26,9 @@ export const deleteEnquiry = async (id) => {
 import { updateDoc } from 'firebase/firestore';
 
 export const getCategories = async () => {
-  const q = query(collection(db, 'categories'), orderBy('name', 'asc'));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+  const snapshot = await getDocs(collection(db, 'categories'));
+  return snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
+    .sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 };
 
 export const addCategory = async (data) => {
@@ -48,9 +48,9 @@ export const deleteCategory = async (id) => {
 
 // ─── Gallery Service ─────────────────────────────
 export const getGallery = async () => {
-  const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+  const snapshot = await getDocs(collection(db, 'gallery'));
+  return snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
+    .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
 };
 
 export const addGalleryItem = async (data) => {
@@ -66,9 +66,9 @@ export const deleteGalleryItem = async (id) => {
 
 // ─── Dealer Service ──────────────────────────────
 export const getDealers = async () => {
-  const q = query(collection(db, 'dealers'), orderBy('name', 'asc'));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+  const snapshot = await getDocs(collection(db, 'dealers'));
+  return snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
+    .sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 };
 
 export const addDealer = async (data) => {

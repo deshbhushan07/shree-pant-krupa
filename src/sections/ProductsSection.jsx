@@ -18,7 +18,7 @@ export default function ProductsSection() {
   const [products, setProducts] = useState(DEMO_PRODUCTS);
 
   useEffect(() => {
-    getProducts({ featured: true, limit: 6 })
+    getProducts({ limit: 6 })
       .then(data => { if (data.length > 0) setProducts(data); })
       .catch(() => {});
   }, []);

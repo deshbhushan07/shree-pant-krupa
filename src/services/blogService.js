@@ -10,13 +10,12 @@ const COLLECTION = 'blogs';
 
 export const getBlogs = async (options = {}) => {
   try {
-    const constraints = [];
-    if (options.status) constraints.push(where('status', '==', options.status));
-    constraints.push(orderBy('createdAt', 'desc'));
-    if (options.limit) constraints.push(limit(options.limit));
-    const q = query(collection(db, COLLECTION), ...constraints);
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    const snapshot = await getDocs(collection(db, COLLECTION));
+    let results = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (options.status) results = results.filter(b => b.status === options.status);
+    results.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    if (options.limit) results = results.slice(0, options.limit);
+    return results;
   } catch (error) {
     console.error('Error fetching blogs:', error);
     return [];
