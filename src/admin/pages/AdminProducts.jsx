@@ -9,6 +9,8 @@ import ImageUploader from '../components/ImageUploader';
 
 const EMPTY = { name: '', slug: '', category: '', gsm: '', width: '', priceRange: '', description: '', applications: '', images: [], featured: false };
 
+const toSlug = (str) => str.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 export default function AdminProducts() {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -17,15 +19,23 @@ export default function AdminProducts() {
   const [form, setForm] = useState(EMPTY);
   const [loading, setLoading] = useState(false);
 
-  const load = () => { getProducts().then(setData); getCategories().then(setCategories); };
+  const load = () => {
+    getProducts().then(setData).catch(() => {});
+    getCategories().then(setCategories).catch(() => {});
+  };
   useEffect(() => { load(); }, []);
 
   const handle = e => {
     const val = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    setForm(f => ({ ...f, [e.target.name]: val }));
+    setForm(f => ({
+      ...f,
+      [e.target.name]: val,
+      // auto-generate slug when name changes
+      ...(e.target.name === 'name' ? { slug: toSlug(val) } : {})
+    }));
   };
 
-  const openAdd = () => { setEditing(null); setForm(EMPTY); setModal(true); };
+  const openAdd = () => { setEditing(null); setForm({ ...EMPTY, images: [] }); setModal(true); };
   const openEdit = row => {
     setEditing(row);
     setForm({
@@ -77,13 +87,11 @@ export default function AdminProducts() {
       <FormModal show={modal} onClose={() => setModal(false)} title={editing ? 'Edit Product' : 'Add Product'} onSubmit={submit} loading={loading}>
         <div className="row g-3">
           <div className="col-6"><FormInput label="Product Name" name="name" value={form.name} onChange={handle} required placeholder="e.g. Kraft Paper Roll" /></div>
-          <div className="col-6"><FormInput label="Slug" name="slug" value={form.slug} onChange={handle} required placeholder="e.g. kraft-paper-roll" /></div>
+          <div className="col-6"><FormInput label="Slug (auto-generated)" name="slug" value={form.slug} onChange={handle} required placeholder="auto from name" /></div>
           <div className="col-6">
             <FormSelect
               label="Category" name="category" value={form.category} onChange={handle}
-              options={[...categories.map(c => ({ value: c.name, label: c.name })),
-                ...['Kraft Paper', 'Mill Board', 'Duplex Board', 'Grey Board', 'Packing Board'].map(c => ({ value: c, label: c }))
-              ].filter((opt, i, arr) => arr.findIndex(x => x.value === opt.value) === i)}
+              options={categories.map(c => ({ value: c.name, label: c.name }))}
             />
           </div>
         <div className="col-4"><FormInput label="GSM Range" name="gsm" value={form.gsm} onChange={handle} placeholder="e.g. 70-200" /></div>

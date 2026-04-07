@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FiPackage, FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import logo from '../assets/images/sp_logo.png';
 import { getCategories } from '../services/enquiryService';
 
 export default function Navbar() {
@@ -46,10 +47,14 @@ export default function Navbar() {
 
           {/* Brand */}
           <Link to="/" className="navbar-brand-custom">
-            <div className="brand-icon"><FiPackage /></div>
-            <div>
-              <div className="brand-text-main">Shri Pant Krupa</div>
-              <div className="brand-text-sub">Paper Board</div>
+              <img
+                src={logo}
+                 alt="Shri Pant Krupa Logo"
+                style={{ width: 56, height: 56, objectFit: 'contain' }}
+              />
+           <div>
+            <div className="brand-text-main">Shri Pant Krupa</div>
+            <div className="brand-text-sub">Paper Board</div>
             </div>
           </Link>
 

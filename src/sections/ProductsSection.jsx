@@ -1,27 +1,30 @@
 // src/sections/ProductsSection.jsx
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../services/productService';
 
-const DEMO_PRODUCTS = [
-  { id: '1', name: 'Kraft Paper Roll', slug: 'kraft-paper-roll', category: 'Kraft Paper', gsm: '70-200', width: '18-72 inch', description: 'High tensile strength brown kraft paper rolls suitable for packaging, wrapping and industrial use.', images: [] },
-  { id: '2', name: 'Mill Board', slug: 'mill-board', category: 'Mill Board', gsm: '200-600', width: 'Custom', description: 'Heavy duty mill board for industrial packaging, book binding and stiffening applications.', images: [] },
-  { id: '3', name: 'Duplex Board', slug: 'duplex-board', category: 'Duplex Board', gsm: '250-450', width: 'Custom', description: 'White coated duplex board ideal for carton boxes, cosmetic packaging and food grade packaging.', images: [] },
-  { id: '4', name: 'Grey Board', slug: 'grey-board', category: 'Grey Board', gsm: '400-2000', width: 'Custom', description: 'Rigid grey board used for book covers, shoe boxes, industrial partitions and heavy-duty packaging.', images: [] },
-  { id: '5', name: 'Packing Board', slug: 'packing-board', category: 'Packing Board', gsm: '150-350', width: 'Standard', description: 'Economical packing board for secondary packaging, dividers and general purpose industrial uses.', images: [] },
-  { id: '6', name: 'Corrugated Medium', slug: 'corrugated-medium', category: 'Kraft Paper', gsm: '90-180', width: '18-60 inch', description: 'Corrugating medium paper for manufacturing 3-ply and 5-ply corrugated boxes.', images: [] },
-];
 
 export default function ProductsSection() {
-  const [products, setProducts] = useState(DEMO_PRODUCTS);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || 'All');
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    getProducts({ limit: 6 })
-      .then(data => { if (data.length > 0) setProducts(data); })
-      .catch(() => {});
+    getProducts()
+      .then(d => setProducts(d))
+      .catch(() => setProducts([]))
+      .finally(() => setLoading(false));
   }, []);
+
+  // sync category from URL when navigating from navbar dropdown
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    if (cat) setActiveCategory(cat);
+  }, [searchParams]);
 
   return (
     <section className="section-padded">

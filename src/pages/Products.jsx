@@ -1,34 +1,19 @@
 // src/pages/Products.jsx
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { FiSearch, FiFilter } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../services/productService';
-import { getCategories } from '../services/enquiryService';
 import { CTA } from '../sections/IndustriesSection';
 import { useScrollAnimation } from '../hooks/useAnimations';
-import { useSearchParams } from 'react-router-dom';
 
-const DEMO_PRODUCTS = [
-  { id: '1', name: 'Kraft Paper Roll', slug: 'kraft-paper-roll', category: 'Kraft Paper', gsm: '70-200', width: '18-72 inch', description: 'High tensile strength brown kraft paper rolls for packaging, wrapping and industrial use.', images: [] },
-  { id: '2', name: 'Mill Board', slug: 'mill-board', category: 'Mill Board', gsm: '200-600', width: 'Custom', description: 'Heavy duty mill board for industrial packaging, book binding and stiffening applications.', images: [] },
-  { id: '3', name: 'Duplex Board', slug: 'duplex-board', category: 'Duplex Board', gsm: '250-450', width: 'Custom', description: 'White coated duplex board for carton boxes, cosmetic and food grade packaging.', images: [] },
-  { id: '4', name: 'Grey Board', slug: 'grey-board', category: 'Grey Board', gsm: '400-2000', width: 'Custom', description: 'Rigid grey board for book covers, shoe boxes and heavy-duty packaging.', images: [] },
-  { id: '5', name: 'Packing Board', slug: 'packing-board', category: 'Packing Board', gsm: '150-350', width: 'Standard', description: 'Economical packing board for secondary packaging and general purpose industrial uses.', images: [] },
-  { id: '6', name: 'Corrugated Medium', slug: 'corrugated-medium', category: 'Kraft Paper', gsm: '90-180', width: '18-60 inch', description: 'Corrugating medium for manufacturing 3-ply and 5-ply corrugated boxes.', images: [] },
-  { id: '7', name: 'White Top Kraft', slug: 'white-top-kraft', category: 'Kraft Paper', gsm: '100-250', width: 'Custom', description: 'White top coated kraft liner for premium printed corrugated boxes.', images: [] },
-  { id: '8', name: 'Rigid Box Board', slug: 'rigid-box-board', category: 'Grey Board', gsm: '600-1200', width: 'Custom', description: 'Premium rigid board for luxury packaging, gift boxes and cosmetic packaging.', images: [] },
-];
 
 export default function Products() {
   useScrollAnimation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState([]);
-  const [searchParams] = useState(() => new URLSearchParams(window.location.search));
-  const [activeCategory, setActiveCategory] = useState(() => {
-    return new URLSearchParams(window.location.search).get('category') || 'All';
-  });
+  const [searchParams] = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || 'All');
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -37,6 +22,12 @@ export default function Products() {
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
   }, []);
+
+  // sync category from URL when navigating from navbar dropdown
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    if (cat) setActiveCategory(cat);
+  }, [searchParams]);
 
   const allCategories = ['All', ...new Set(products.map(p => p.category).filter(Boolean))];
 

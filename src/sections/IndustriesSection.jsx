@@ -64,11 +64,11 @@ export function WhyChooseUs() {
             <div className="divider-accent" />
             <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
             <p className="section-lead">
-              With over 15 years of experience in the paper board industry, we've built our reputation on quality, reliability, and exceptional customer service.
+              With over 11+ years of experience in the paper board industry, we've built our reputation on quality, reliability, and exceptional customer service.
             </p>
             <div className="mt-4" style={{ background: 'var(--cream)', padding: '1.5rem', borderRadius: 'var(--radius-md)', borderLeft: '4px solid var(--accent)' }}>
               <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1.1rem', color: 'var(--primary-dark)', marginBottom: '0.5rem' }}>
-                "Omkar Shrikant Patil"
+                "Shrikant D. Patil"
               </div>
               <div style={{ fontSize: '0.85rem', color: 'var(--text-mid)', fontStyle: 'italic' }}>
                 Proprietor, Shri Pant Krupa Paper Board

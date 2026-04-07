@@ -19,14 +19,28 @@ export default function AdminCategories() {
   const openAdd = () => { setEditing(null); setForm({ name: '', slug: '', description: '' }); setModal(true); };
   const openEdit = row => { setEditing(row); setForm({ name: row.name, slug: row.slug, description: row.description || '' }); setModal(true); };
 
-  const submit = async e => {
-    e.preventDefault(); setLoading(true);
-    try {
-      if (editing) await updateCategory(editing.id, form);
-      else await addCategory(form);
-      load(); setModal(false);
-    } catch { } finally { setLoading(false); }
-  };
+  const submit = async (e) => {
+  if (e?.preventDefault) e.preventDefault();
+
+  // Manual validation since we removed the <form>
+  if (!form.name.trim() || !form.slug.trim()) {
+    alert('Name and Slug are required.');
+    return;
+  }
+
+  setLoading(true);
+  try {
+    if (editing) await updateCategory(editing.id, form);
+    else await addCategory(form);
+    load();
+    setModal(false);
+  } catch (err) {
+    console.error('Save failed:', err);
+    alert(err?.message || 'Failed to save. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const del = async id => { await deleteCategory(id); load(); };
 

@@ -22,8 +22,9 @@ export default function ImageUploader({ folder = 'general', value, onChange, lab
       setPreview('');
     } catch (err) {
       console.error('Upload failed:', err);
-      alert('Image upload failed. Check Firebase Storage rules.');
+      alert(`Upload failed: ${err.code || err.message}\n\nMake sure Firebase Storage rules allow write access.`);
       setPreview('');
+      onChange('');
     } finally {
       setUploading(false);
     }

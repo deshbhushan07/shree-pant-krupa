@@ -47,8 +47,8 @@ export default function About() {
                 {[
                   { icon: <FaIndustry />, label: 'Manufacturing & Trading' },
                   { icon: <FaLeaf />, label: 'Eco-Friendly Practices' },
-                  { icon: <FaHandshake />, label: 'Pan-India Supply' },
-                ].map((f, i) => (
+                  { icon: <FaHandshake />, label: 'India-wide Distribution' },
+                ].map((f, i) => ( 
                   <div key={i} className="col-sm-4">
                     <div style={{ background: 'var(--cream)', padding: '1rem', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
                       <div style={{ color: 'var(--primary)', fontSize: '1.25rem', marginBottom: '0.5rem' }}>{f.icon}</div>
@@ -66,10 +66,10 @@ export default function About() {
                 </div>
                 {[
                   { label: 'Company', value: 'Shri Pant Krupa Paper Board' },
-                  { label: 'Proprietor', value: 'Omkar Shrikant Patil' },
+                  { label: 'Proprietor', value: 'Shrikant D. Patil' },
                   { label: 'Business Type', value: 'Manufacturer / Trader' },
                   { label: 'Location', value: 'Halsavade, Kolhapur, MH' },
-                  { label: 'GSM Range', value: '70 – 2000 GSM' },
+                  { label: 'GSM Range', value: '200 – 550 GSM' },
                   { label: 'Products', value: 'Kraft, Mill Board, Duplex, Grey Board' },
                   { label: 'Delivery', value: 'Pan India' },
                 ].map((d, i) => (
@@ -162,12 +162,12 @@ export default function About() {
           </div>
           <div className="row g-4">
             {[
-              { title: 'Wide GSM Range', desc: 'Manufacturing paper boards from 70 GSM lightweight to 2000 GSM heavy grades.', icon: '⚖️' },
-              { title: 'Custom Widths', desc: 'Available in standard and custom widths from 18 to 72 inches based on client requirements.', icon: '📏' },
+              { title: 'Wide GSM Range', desc: 'Manufacturing paper boards from 200 GSM lightweight to 550 GSM heavy grades.', icon: '⚖️' },
+              { title: 'Custom Widths', desc: 'Available in standard and custom widths from 18 to 46 inches based on client requirements.', icon: '📏' },
               { title: 'Multiple Grades', desc: 'Kraft, Mill, Duplex, Grey, and specialty grades for diverse packaging applications.', icon: '🗂️' },
               { title: 'Bulk Supply', desc: 'Capacity to handle bulk orders with consistent quality for large manufacturers.', icon: '🏭' },
               { title: 'Quality Testing', desc: 'In-house quality checks for GSM, burst factor, tensile strength, and moisture content.', icon: '🔬' },
-              { title: 'Timely Delivery', desc: 'Reliable logistics and warehousing ensure on-time delivery across India.', icon: '🚛' },
+              { title: 'Timely Delivery', desc: 'Reliable logistics network Efficient warehousing solutions Timely delivery across India', icon: '🚛' },
             ].map((c, i) => (
               <div key={i} className={`col-lg-4 col-md-6 fade-in delay-${Math.min(i + 1, 4)}`}>
                 <div style={{ background: '#fff', padding: '1.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
