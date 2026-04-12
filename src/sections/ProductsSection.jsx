@@ -10,7 +10,7 @@ export default function ProductsSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProducts({ limit: 6 })
+    getProducts({ featured: true, limit: 6 })
       .then(d => setProducts(d))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
