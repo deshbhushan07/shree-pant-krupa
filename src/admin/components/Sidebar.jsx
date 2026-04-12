@@ -21,7 +21,7 @@ const MENU = [
   ]},
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ onClose }) {
   return (
     <aside className="admin-sidebar">
       <div className="sidebar-brand">
@@ -37,10 +37,11 @@ export default function Sidebar() {
             <div className="sidebar-section-label">{section.label}</div>
             {section.items.map(item => (
               <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              onClick={onClose}
+              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
               >
                 <span className="link-icon">{item.icon}</span>
                 {item.label}
