@@ -1508,20 +1508,30 @@ img { max-width: 100%; height: auto; display: block; }
    ============================================ */
 
 /* Sidebar hidden on mobile, shown as overlay */
+@media (min-width: 992px) {
+  .admin-sidebar-inner {
+    transform: translateX(0) !important;
+  }
+  .admin-main-inner {
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+  }
+}
+
 @media (max-width: 991px) {
-  .admin-sidebar {
+  .admin-sidebar-inner {
     transform: translateX(-260px);
     z-index: 300;
   }
 
-  .admin-sidebar.mobile-open {
+  .admin-sidebar-inner.mobile-open {
     transform: translateX(0);
     box-shadow: 4px 0 32px rgba(0,0,0,0.3);
   }
 
-  .admin-main {
+  .admin-main-inner {
     margin-left: 0 !important;
-    width: 100%;
+    width: 100% !important;
   }
 
   .admin-topbar {
