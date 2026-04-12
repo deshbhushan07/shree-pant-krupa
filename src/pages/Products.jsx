@@ -1,47 +1,54 @@
-// src/pages/Products.jsx
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { FiSearch, FiFilter } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../services/productService';
 import { CTA } from '../sections/IndustriesSection';
-import { useScrollAnimation } from '../hooks/useAnimations';
-
 
 export default function Products() {
-  useScrollAnimation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [searchParams] = useSearchParams();
-  const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || 'All');
+  const [activeCategory, setActiveCategory] = useState('All');
   const [search, setSearch] = useState('');
 
   useEffect(() => {
+    setLoading(true);
     getProducts()
-      .then(d => setProducts(d))
-      .catch(() => setProducts([]))
+      .then(d => {
+        console.log('Products received in page:', d.length);
+        setProducts(d);
+        setError('');
+      })
+      .catch(err => {
+        console.error('Products page error:', err);
+        setError(err.message);
+      })
       .finally(() => setLoading(false));
   }, []);
 
-  // sync category from URL when navigating from navbar dropdown
+  // sync category from URL
   useEffect(() => {
     const cat = searchParams.get('category');
-    if (cat) setActiveCategory(cat);
+    setActiveCategory(cat || 'All');
   }, [searchParams]);
 
   const allCategories = ['All', ...new Set(products.map(p => p.category).filter(Boolean))];
 
   const filtered = products.filter(p => {
     const matchCat = activeCategory === 'All' || p.category === activeCategory;
-    const matchSearch = !search || p.name.toLowerCase().includes(search.toLowerCase());
+    const matchSearch = !search || p.name?.toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
   });
 
   return (
     <>
-      <div className="page-header cream-bottom" style={{ '--page-bg': 'var(--cream)' }}>
+      <div className="page-header cream-bottom">
         <div className="container">
-          <div className="page-header-breadcrumb"><Link to="/">Home</Link> / Products</div>
+          <div className="page-header-breadcrumb">
+            <Link to="/">Home</Link> / Products
+          </div>
           <h1 className="page-header-title mt-2">Our Products</h1>
           <p style={{ color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem' }}>
             Premium paper board products for every industrial requirement
@@ -51,6 +58,7 @@ export default function Products() {
 
       <section className="section-padded" style={{ paddingTop: '3rem' }}>
         <div className="container">
+
           {/* Filters */}
           <div className="d-flex flex-wrap gap-3 align-items-center mb-5">
             <div className="d-flex flex-wrap gap-2">
@@ -73,35 +81,68 @@ export default function Products() {
                 </button>
               ))}
             </div>
-            <div className="ms-md-auto" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#f9fafb', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '0.5rem 1rem' }}>
+            <div className="ms-md-auto" style={{
+              display: 'flex', alignItems: 'center', gap: '0.5rem',
+              background: '#f9fafb', border: '1px solid var(--border)',
+              borderRadius: 'var(--radius)', padding: '0.5rem 1rem'
+            }}>
               <FiSearch size={14} color="var(--text-light)" />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search products..."
-                style={{ border: 'none', background: 'none', outline: 'none', fontSize: '0.85rem', color: 'var(--text-dark)', minWidth: 180 }}
+                style={{
+                  border: 'none', background: 'none', outline: 'none',
+                  fontSize: '0.85rem', color: 'var(--text-dark)', minWidth: 180
+                }}
               />
             </div>
           </div>
 
-          {loading ? (
+          {/* States */}
+          {loading && (
             <div className="text-center py-5">
               <div className="spinner-border" style={{ color: 'var(--primary)' }} />
               <p style={{ color: 'var(--text-light)', marginTop: '1rem' }}>Loading products...</p>
             </div>
-          ) : filtered.length === 0 ? (
+          )}
+
+          {!loading && error && (
             <div className="text-center py-5">
-              <p style={{ color: 'var(--text-light)' }}>No products found.</p>
+              <p style={{ color: '#e11d48', fontWeight: 500 }}>Error: {error}</p>
+              <p style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>Check Firestore rules and Firebase config.</p>
             </div>
-          ) : (
+          )}
+
+          {!loading && !error && filtered.length === 0 && (
+            <div className="text-center py-5">
+              <p style={{ color: 'var(--text-light)', fontSize: '1rem' }}>
+                {products.length === 0
+                  ? 'No products found in database.'
+                  : `No products in "${activeCategory}" category.`}
+              </p>
+              {activeCategory !== 'All' && (
+                <button
+                  onClick={() => setActiveCategory('All')}
+                  className="btn-outline-custom mt-3"
+                  style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
+                >
+                  Show All Products
+                </button>
+              )}
+            </div>
+          )}
+
+          {!loading && !error && filtered.length > 0 && (
             <div className="row g-4">
-              {filtered.map((p, i) => (
-                <div key={p.id} className={`col-lg-3 col-md-6 fade-in delay-${Math.min(i % 4 + 1, 4)}`}>
+              {filtered.map(p => (
+                <div key={p.id} className="col-lg-3 col-md-6">
                   <ProductCard product={p} />
                 </div>
               ))}
             </div>
           )}
+
         </div>
       </section>
 

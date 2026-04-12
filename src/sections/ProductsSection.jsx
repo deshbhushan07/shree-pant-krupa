@@ -1,30 +1,20 @@
 // src/sections/ProductsSection.jsx
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../services/productService';
 
-
 export default function ProductsSection() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchParams] = useSearchParams();
-  const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || 'All');
-  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    getProducts()
+    getProducts({ limit: 6 })
       .then(d => setProducts(d))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
   }, []);
-
-  // sync category from URL when navigating from navbar dropdown
-  useEffect(() => {
-    const cat = searchParams.get('category');
-    if (cat) setActiveCategory(cat);
-  }, [searchParams]);
 
   return (
     <section className="section-padded">
@@ -45,13 +35,27 @@ export default function ProductsSection() {
           </div>
         </div>
 
-        <div className="row g-4">
-          {products.map((p, i) => (
-            <div key={p.id} className={`col-lg-4 col-md-6 fade-in delay-${Math.min(i + 1, 4)}`}>
-              <ProductCard product={p} />
-            </div>
-          ))}
-        </div>
+        {loading && (
+          <div className="text-center py-4">
+            <div className="spinner-border" style={{ color: 'var(--primary)' }} />
+          </div>
+        )}
+
+        {!loading && products.length === 0 && (
+          <div className="text-center py-4">
+            <p style={{ color: 'var(--text-light)' }}>No products added yet.</p>
+          </div>
+        )}
+
+        {!loading && products.length > 0 && (
+          <div className="row g-4">
+            {products.map(p => (
+              <div key={p.id} className="col-lg-4 col-md-6">
+                <ProductCard product={p} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

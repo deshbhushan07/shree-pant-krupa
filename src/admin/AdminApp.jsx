@@ -17,6 +17,7 @@ import AdminEnquiries from './pages/AdminEnquiries';
 function AdminLayout() {
   const { user, logout } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = async () => {
     if (window.confirm('Sign out of the admin panel?')) {
@@ -26,12 +27,36 @@ function AdminLayout() {
 
   return (
     <div className="admin-layout">
-      <Sidebar />
+      <div className={`admin-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}
+        style={{ position: 'fixed', top: 0, left: 0, height: '100vh' }}>
+        <Sidebar onClose={() => setSidebarOpen(false)} />
+      </div>
       <main className="admin-main">
+
+        {/* Top Bar */}
+        {/* Sidebar backdrop for mobile */}
+        {sidebarOpen && (
+          <div
+            className="sidebar-backdrop visible"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
 
         {/* Top Bar */}
         <div className="admin-topbar">
           <div className="d-flex align-items-center gap-2">
+            <button
+              onClick={() => setSidebarOpen(s => !s)}
+              style={{
+                display: 'none',
+                background: 'none', border: 'none',
+                fontSize: '1.25rem', color: 'var(--primary)',
+                cursor: 'pointer', padding: '0.25rem',
+              }}
+              className="mobile-menu-btn"
+            >
+              <FiMenu />
+            </button>
             <span style={{ fontFamily: 'var(--ff-body)', fontSize: '0.85rem', color: 'var(--text-light)' }}>
               Shri Pant Krupa Paper Board — Admin
             </span>
