@@ -25,90 +25,128 @@ function AdminLayout() {
     }
   };
 
+  const closeSidebar = () => setSidebarOpen(false);
+
   return (
-    <div className="admin-layout">
-      <div className={`admin-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}
-        style={{ position: 'fixed', top: 0, left: 0, height: '100vh' }}>
-        <Sidebar onClose={() => setSidebarOpen(false)} />
-      </div>
-      <main className="admin-main">
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#f0f2f5', position: 'relative' }}>
 
-        {/* Top Bar */}
-        {/* Sidebar backdrop for mobile */}
-        {sidebarOpen && (
-          <div
-            className="sidebar-backdrop visible"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
+      {/* Backdrop — mobile only */}
+      {sidebarOpen && (
+        <div
+          onClick={closeSidebar}
+          style={{
+            position: 'fixed', inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 299,
+            display: 'block',
+          }}
+        />
+      )}
 
+      {/* Sidebar */}
+      <aside style={{
+        width: 260,
+        background: 'var(--primary-dark)',
+        color: '#fff',
+        flexShrink: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'fixed',
+        top: 0, left: 0,
+        height: '100vh',
+        overflowY: 'auto',
+        zIndex: 300,
+        transition: 'transform 0.3s ease',
+        transform: sidebarOpen ? 'translateX(0)' : 'translateX(-260px)',
+      }}
+        className="admin-sidebar-inner"
+      >
+        <Sidebar onClose={closeSidebar} />
+      </aside>
+
+      {/* Main */}
+      <main style={{
+        marginLeft: 260,
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        width: 'calc(100% - 260px)',
+      }}
+        className="admin-main-inner"
+      >
         {/* Top Bar */}
-        <div className="admin-topbar">
-          <div className="d-flex align-items-center gap-2">
+        <div style={{
+          background: '#fff',
+          borderBottom: '1px solid #e5e7eb',
+          padding: '0.875rem 1.25rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          position: 'sticky',
+          top: 0,
+          zIndex: 99,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {/* Hamburger — always visible, sidebar toggle */}
             <button
               onClick={() => setSidebarOpen(s => !s)}
               style={{
-                display: 'none',
                 background: 'none', border: 'none',
                 fontSize: '1.25rem', color: 'var(--primary)',
                 cursor: 'pointer', padding: '0.25rem',
+                display: 'flex', alignItems: 'center',
               }}
-              className="mobile-menu-btn"
             >
               <FiMenu />
             </button>
-            <span style={{ fontFamily: 'var(--ff-body)', fontSize: '0.85rem', color: 'var(--text-light)' }}>
-              Shri Pant Krupa Paper Board — Admin
+            <span style={{ fontFamily: 'var(--ff-body)', fontSize: '0.82rem', color: 'var(--text-light)' }}>
+              Shri Pant Krupa — Admin
             </span>
           </div>
 
-          <div className="d-flex align-items-center gap-3">
-            <button style={{ background: 'none', border: 'none', color: 'var(--text-mid)', cursor: 'pointer', fontSize: '1.1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <button style={{ background: 'none', border: 'none', color: 'var(--text-mid)', cursor: 'pointer', fontSize: '1.1rem', display: 'flex' }}>
               <FiBell />
             </button>
 
-            {/* User Menu */}
+            {/* User menu */}
             <div style={{ position: 'relative' }}>
               <button
                 onClick={() => setShowUserMenu(s => !s)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: '0.5rem',
                   background: 'none', border: '1px solid var(--border)',
-                  borderRadius: 8, padding: '0.4rem 0.75rem',
-                  cursor: 'pointer', transition: 'all 0.2s ease',
+                  borderRadius: 8, padding: '0.35rem 0.75rem',
+                  cursor: 'pointer',
                 }}
               >
                 <div style={{
                   width: 28, height: 28, background: 'var(--primary)',
                   borderRadius: '50%', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', color: '#fff', fontSize: '0.75rem',
+                  justifyContent: 'center', color: '#fff',
                 }}>
                   <FiUser size={13} />
                 </div>
-                <span style={{ fontSize: '0.82rem', fontWeight: 500, color: 'var(--text-dark)', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: '0.82rem', fontWeight: 500, color: 'var(--text-dark)', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {user?.email?.split('@')[0] || 'Admin'}
                 </span>
               </button>
 
               {showUserMenu && (
                 <>
-                  {/* Backdrop */}
-                  <div
-                    style={{ position: 'fixed', inset: 0, zIndex: 98 }}
-                    onClick={() => setShowUserMenu(false)}
-                  />
-                  {/* Dropdown */}
+                  <div style={{ position: 'fixed', inset: 0, zIndex: 98 }} onClick={() => setShowUserMenu(false)} />
                   <div style={{
                     position: 'absolute', top: 'calc(100% + 8px)', right: 0,
                     background: '#fff', border: '1px solid var(--border)',
                     borderRadius: 10, boxShadow: 'var(--shadow-md)',
-                    minWidth: 220, zIndex: 99, overflow: 'hidden',
+                    minWidth: 200, zIndex: 99, overflow: 'hidden',
                   }}>
                     <div style={{ padding: '0.875rem 1rem', borderBottom: '1px solid var(--border)' }}>
-                      <div style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-light)', marginBottom: '0.25rem' }}>
+                      <div style={{ fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-light)', marginBottom: '0.25rem', letterSpacing: '0.08em' }}>
                         Signed in as
                       </div>
-                      <div style={{ fontSize: '0.88rem', color: 'var(--text-dark)', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--text-dark)', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {user?.email}
                       </div>
                     </div>
@@ -119,7 +157,6 @@ function AdminLayout() {
                         padding: '0.75rem 1rem', background: 'none', border: 'none',
                         fontSize: '0.88rem', color: '#e11d48', cursor: 'pointer',
                         fontFamily: 'var(--ff-body)', fontWeight: 500,
-                        transition: 'background 0.15s ease',
                       }}
                       onMouseEnter={e => e.currentTarget.style.background = '#fff1f2'}
                       onMouseLeave={e => e.currentTarget.style.background = 'none'}
@@ -134,7 +171,7 @@ function AdminLayout() {
         </div>
 
         {/* Page Content */}
-        <div className="admin-content">
+        <div style={{ padding: '1.75rem', flex: 1 }} className="admin-content">
           <Routes>
             <Route path="" element={<Dashboard />} />
             <Route path="categories" element={<AdminCategories />} />
@@ -147,6 +184,19 @@ function AdminLayout() {
           </Routes>
         </div>
       </main>
+
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 991px) {
+          .admin-main-inner {
+            margin-left: 0 !important;
+            width: 100% !important;
+          }
+          .admin-content {
+            padding: 1rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -169,7 +219,6 @@ export default function AdminApp() {
   );
 }
 
-// Redirect to /admin if already logged in
 function LoginGuard() {
   const { user, loading } = useAuth();
   if (loading) return null;
