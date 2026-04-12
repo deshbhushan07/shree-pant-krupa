@@ -64,15 +64,16 @@ function AdminLayout() {
         <Sidebar onClose={closeSidebar} />
       </aside>
 
-      {/* Main */}
-      <main style={{
-        marginLeft: 260,
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        width: 'calc(100% - 260px)',
-      }}
+      {/* Main — marginLeft and width handled by CSS below */}
+      <main
+        style={{
+          marginLeft: 0,
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100%',
+        }}
         className="admin-main-inner"
       >
         {/* Top Bar */}
@@ -88,7 +89,6 @@ function AdminLayout() {
           zIndex: 99,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            {/* Hamburger — always visible, sidebar toggle */}
             <button
               onClick={() => setSidebarOpen(s => !s)}
               style={{
@@ -188,23 +188,27 @@ function AdminLayout() {
       {/* Responsive styles */}
       <style>{`
         @media (min-width: 992px) {
-        .admin-sidebar-inner {
-          transform: translateX(0) !important;
+          .admin-sidebar-inner {
+            transform: translateX(0) !important;
           }
-       }
-        @media (max-width: 991px) {
-        .admin-main-inner {
-          margin-left: 0 !important;
-          width: 100% !important;
-       }
-        .admin-content {
-         padding: 1rem !important;
+          .admin-main-inner {
+            margin-left: 260px !important;
+            width: calc(100% - 260px) !important;
+          }
         }
-        .admin-sidebar-inner {
-         transform: ${sidebarOpen ? 'translateX(0)' : 'translateX(-260px)'} !important;
-      }
-    }
-`}</style>
+        @media (max-width: 991px) {
+          .admin-sidebar-inner {
+            transform: ${sidebarOpen ? 'translateX(0)' : 'translateX(-260px)'} !important;
+          }
+          .admin-main-inner {
+            margin-left: 0 !important;
+            width: 100% !important;
+          }
+          .admin-content {
+            padding: 1rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
