@@ -187,16 +187,24 @@ function AdminLayout() {
 
       {/* Responsive styles */}
       <style>{`
+        @media (min-width: 992px) {
+        .admin-sidebar-inner {
+          transform: translateX(0) !important;
+          }
+       }
         @media (max-width: 991px) {
-          .admin-main-inner {
-            margin-left: 0 !important;
-            width: 100% !important;
-          }
-          .admin-content {
-            padding: 1rem !important;
-          }
+        .admin-main-inner {
+          margin-left: 0 !important;
+          width: 100% !important;
+       }
+        .admin-content {
+         padding: 1rem !important;
         }
-      `}</style>
+        .admin-sidebar-inner {
+         transform: ${sidebarOpen ? 'translateX(0)' : 'translateX(-260px)'} !important;
+      }
+    }
+`}</style>
     </div>
   );
 }
