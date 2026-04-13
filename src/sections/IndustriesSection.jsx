@@ -10,6 +10,29 @@ const INDUSTRIES = [
   { icon: <FiSettings />, title: 'Printing & Publishing', desc: 'Smooth coated boards for high-quality printing, book binding and stationery.' },
 ];
 
+const TRUSTED_CLIENTS = [
+  {
+    name: 'Packaging Industry',
+    location: 'Maharashtra, India',
+    quote: 'Consistent quality and on-time delivery every single time. Shri Pant Krupa is our go-to supplier for kraft paper.',
+    initials: 'PI',
+    color: '#1a3a2e',
+  },
+  {
+    name: 'Corrugated Box Manufacturer',
+    location: 'Kolhapur, Maharashtra',
+    quote: 'Their mill board grades are exactly what we need for our 5-ply boxes. Reliable pricing and great support.',
+    initials: 'CB',
+    color: '#c8963e',
+  },
+  {
+    name: 'Industrial Packaging Co.',
+    location: 'Pune, Maharashtra',
+    quote: "We've been sourcing duplex board from them for 3+ years. Quality never drops and bulk supply is always ready.",
+    color: '#2d5c4a',
+  },
+];
+
 export function IndustriesSection() {
   return (
     <section className="section-padded section-bg-cream">
@@ -23,9 +46,9 @@ export function IndustriesSection() {
           </p>
         </div>
 
-        <div className="row g-4">
+        <div className="row g-4 mb-5">
           {INDUSTRIES.map((ind, i) => (
-            <div key={i} className={`col-lg-4 col-md-6 fade-in delay-${Math.min(i + 1, 4)}`}>
+            <div key={i} className="col-lg-4 col-md-6">
               <div className="industry-card">
                 <div className="industry-icon">{ind.icon}</div>
                 <div className="industry-title">{ind.title}</div>
@@ -36,11 +59,90 @@ export function IndustriesSection() {
             </div>
           ))}
         </div>
+
+        {/* Trusted Clients */}
+        <div style={{ height: 1, background: 'var(--border)', margin: '1rem 0 3.5rem' }} />
+
+        <div className="text-center mb-4">
+          <div className="section-eyebrow">What Our Clients Say</div>
+          <div className="divider-accent center" />
+          <h2 className="section-title">Trusted By Businesses Across India</h2>
+        </div>
+
+        <div className="row g-4 justify-content-center">
+          {TRUSTED_CLIENTS.map((client, i) => (
+            <div key={i} className="col-lg-4 col-md-6">
+              <div style={{
+                background: '#fff',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '2rem',
+                height: '100%',
+                position: 'relative',
+                transition: 'var(--transition)',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                {/* Quote mark */}
+                <div style={{
+                  fontSize: '4rem', lineHeight: 1,
+                  color: 'var(--accent)', opacity: 0.15,
+                  fontFamily: 'Georgia',
+                  position: 'absolute', top: 12, left: 20,
+                }}>
+                  "
+                </div>
+
+                {/* Stars */}
+                <div style={{ color: '#f59e0b', fontSize: '0.9rem', marginBottom: '1rem', letterSpacing: 2 }}>
+                  ★★★★★
+                </div>
+
+                {/* Quote */}
+                <p style={{
+                  fontSize: '0.9rem',
+                  color: 'var(--text-mid)',
+                  lineHeight: 1.8,
+                  fontStyle: 'italic',
+                  marginBottom: '1.5rem',
+                }}>
+                  "{client.quote}"
+                </p>
+
+                {/* Client info */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+                  <div style={{
+                    width: 44, height: 44,
+                    borderRadius: '50%',
+                    background: client.color,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#fff',
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    flexShrink: 0,
+                    letterSpacing: '0.05em',
+                  }}>
+                    {client.initials}
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', fontWeight: 700, color: 'var(--primary-dark)' }}>
+                      {client.name}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', marginTop: '0.1rem' }}>
+                      {client.location}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );
 }
-
 // ─── Why Choose Us ──────────────────────────────────────
 
 import { FiAward, FiShield, FiRefreshCw, FiUsers, FiZap, FiGlobe } from 'react-icons/fi';

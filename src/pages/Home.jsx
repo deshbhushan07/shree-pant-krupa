@@ -8,30 +8,16 @@ import ProductsSection from '../sections/ProductsSection';
 import { IndustriesSection, WhyChooseUs, CTA } from '../sections/IndustriesSection';
 import BlogCard from '../components/BlogCard';
 import { getBlogs } from '../services/blogService';
-import { useScrollAnimation } from '../hooks/useAnimations';
-
-const DEMO_BLOGS = [
-  { id: '1', title: 'Understanding GSM in Paper Boards: A Complete Guide', slug: 'gsm-paper-boards-guide', author: 'Admin', excerpt: 'Learn what GSM means in paper boards and how to choose the right weight for your packaging needs.', createdAt: null, status: 'published' },
-  { id: '2', title: 'Kraft Paper vs Duplex Board: Which Is Right for Your Business?', slug: 'kraft-vs-duplex-board', author: 'Admin', excerpt: 'A detailed comparison of kraft paper and duplex board to help you make the right purchasing decision.', createdAt: null, status: 'published' },
-  { 
-  id: '3',
-  title: "Sustainable Packaging Trends in India's Paper Board Industry",
-  slug: 'sustainable-packaging-trends',
-  author: 'Admin',
-  excerpt: 'Explore how Indian paper board manufacturers are adapting to eco-friendly packaging demands.',
-  createdAt: new Date(),
-  status: 'published'
-}
-];
 
 export default function Home() {
-  useScrollAnimation();
-  const [blogs, setBlogs] = useState(DEMO_BLOGS);
+  const [blogs, setBlogs] = useState([]);
+  const [blogsLoading, setBlogsLoading] = useState(true);
 
   useEffect(() => {
     getBlogs({ status: 'published', limit: 3 })
-      .then(data => { if (data.length > 0) setBlogs(data); })
-      .catch(() => {});
+      .then(data => setBlogs(data))
+      .catch(() => setBlogs([]))
+      .finally(() => setBlogsLoading(false));
   }, []);
 
   return (
@@ -44,7 +30,7 @@ export default function Home() {
           <div className="row align-items-center text-center text-md-start">
             <div className="col-md-8">
               <p style={{ color: 'rgba(255,255,255,0.85)', margin: 0, fontSize: '0.95rem' }}>
-                📍 GATE NO 3, A-2, A/P Halsavade, Kolhapur, Maharashtra – 416202 &nbsp;|&nbsp; Proprietor: Omkar Shrikant Patil
+                📍 GATE NO 3, A-2, A/P Halsavade, Kolhapur, Maharashtra – 416202 &nbsp;|&nbsp; Proprietor: Shrikant D. Patil
               </p>
             </div>
             <div className="col-md-4 text-md-end mt-2 mt-md-0">
@@ -75,13 +61,27 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="row g-4">
-            {blogs.map((b, i) => (
-              <div key={b.id} className={`col-lg-4 col-md-6 fade-in delay-${i + 1}`}>
-                <BlogCard blog={b} />
-              </div>
-            ))}
-          </div>
+          {blogsLoading && (
+            <div className="text-center py-4">
+              <div className="spinner-border" style={{ color: 'var(--primary)' }} />
+            </div>
+          )}
+
+          {!blogsLoading && blogs.length === 0 && (
+            <div className="text-center py-4">
+              <p style={{ color: 'var(--text-light)' }}>No blog posts published yet.</p>
+            </div>
+          )}
+
+          {!blogsLoading && blogs.length > 0 && (
+            <div className="row g-4">
+              {blogs.map(b => (
+                <div key={b.id} className="col-lg-4 col-md-6">
+                  <BlogCard blog={b} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
