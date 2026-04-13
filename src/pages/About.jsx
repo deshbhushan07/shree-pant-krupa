@@ -70,7 +70,7 @@ export default function About() {
                   { label: 'Business Type', value: 'Manufacturer / Trader' },
                   { label: 'Location', value: 'Halsavade, Kolhapur, MH' },
                   { label: 'GSM Range', value: '200 – 550 GSM' },
-                  { label: 'Products', value: 'Kraft, Mill Board, Duplex, Grey Board' },
+                  { label: 'Products', value: 'Kraft, Mill Board, Sheet Cutting' },
                   { label: 'Delivery', value: 'Pan India' },
                 ].map((d, i) => (
                   <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.6rem 0', borderBottom: '1px solid rgba(255,255,255,0.07)', fontSize: '0.88rem' }}>
@@ -141,7 +141,7 @@ export default function About() {
                   our community, and to sustainable business practices that respect our environment.
                 </p>
                 <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary-dark)' }}>
-                  Omkar Shrikant Patil
+                  Shrikant D. Patil
                 </div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--accent)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '0.25rem' }}>
                   Proprietor
@@ -149,6 +149,152 @@ export default function About() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      {/* Team & Recognition */}
+      <section className="section-padded section-bg-cream">
+        <div className="container">
+
+          {/* Team */}
+          <div className="row g-4 mb-5">
+            {[
+              {
+                name: 'Shrikant D. Patil',
+                role: 'Proprietor & Founder',
+                photo: new URL('../assets/images/team1.jpg', import.meta.url).href,
+                bio: 'With decades of experience in the paper board industry, Shrikant leads the company with a focus on quality and customer satisfaction.',
+              },
+              {
+                name: 'Team Member Name',
+                role: 'Production Manager',
+                photo: new URL('../assets/images/team2.jpg', import.meta.url).href,
+                bio: 'Oversees manufacturing operations ensuring every batch meets our strict quality standards.',
+              },
+              {
+                name: 'Team Member Name',
+                role: 'Sales & Marketing',
+                photo: new URL('../assets/images/team3.jpg', import.meta.url).href,
+                bio: 'Manages client relationships and ensures timely fulfillment of orders across India.',
+              },
+              {
+                name: 'Team Member Name',
+                role: 'Quality Control',
+                photo: new URL('../assets/images/team4.jpg', import.meta.url).href,
+                bio: 'Ensures every product batch passes strict quality checks before dispatch to clients.',
+              },
+            ].map((member, i) => (
+              <div key={i} className="col-lg-3 col-md-6">
+                <div style={{
+                  background: '#fff',
+                  borderRadius: 'var(--radius-lg)',
+                  overflow: 'hidden',
+                  border: '1px solid var(--border)',
+                  transition: 'var(--transition)',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
+                >
+                  {/* Photo — full width tall image */}
+                  <div style={{
+                    width: '100%',
+                    height: 280,
+                    overflow: 'hidden',
+                    background: 'var(--cream)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                      onError={e => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;opacity:0.2">👤</div>';
+                      }}
+                    />
+                  </div>
+
+                  {/* Info */}
+                  <div style={{ padding: '1.25rem 1.5rem 1.5rem' }}>
+                    <div style={{
+                      display: 'inline-block',
+                      background: 'rgba(200,150,62,0.1)',
+                      color: 'var(--accent)',
+                      fontSize: '0.68rem', fontWeight: 700,
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                      padding: '0.2rem 0.625rem', borderRadius: 100,
+                      marginBottom: '0.5rem',
+                    }}>
+                      {member.role}
+                    </div>
+                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary-dark)', marginBottom: '0.5rem' }}>
+                      {member.name}
+                    </div>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-mid)', lineHeight: 1.7, margin: 0 }}>
+                      {member.bio}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div style={{ height: 1, background: 'var(--border)', margin: '3rem 0' }} />
+
+          {/* Recognition */}
+          <div className="text-center mb-5">
+            <div className="section-eyebrow">Awards & Recognition</div>
+            <div className="divider-accent center" />
+            <h2 className="section-title">Our Achievements</h2>
+          </div>
+
+          <div className="row g-4 justify-content-center">
+            {[
+              { icon: '🏆', title: 'Quality Excellence', year: '2023', desc: 'Recognized for consistent product quality and customer satisfaction by industry partners.' },
+              { icon: '🌿', title: 'Eco-Friendly Practices', year: '2022', desc: 'Acknowledged for adopting sustainable and environmentally responsible manufacturing processes.' },
+              { icon: '🤝', title: 'Trusted Supplier', year: '2021', desc: 'Certified as a preferred supplier by leading packaging manufacturers across Maharashtra.' },
+              { icon: '📦', title: 'Bulk Supply Partner', year: '2020', desc: 'Awarded for reliable bulk supply capabilities and on-time delivery performance.' },
+            ].map((award, i) => (
+              <div key={i} className="col-lg-3 col-md-6">
+                <div style={{
+                  background: '#fff',
+                  border: '1px solid var(--border)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '1.75rem 1.25rem',
+                  textAlign: 'center',
+                  height: '100%',
+                  transition: 'var(--transition)',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none'; }}
+                >
+                  <div style={{ fontSize: '2.5rem', marginBottom: '0.875rem' }}>{award.icon}</div>
+                  <div style={{
+                    display: 'inline-block',
+                    background: 'rgba(200,150,62,0.1)',
+                    color: 'var(--accent)',
+                    fontSize: '0.7rem', fontWeight: 700,
+                    letterSpacing: '0.1em', textTransform: 'uppercase',
+                    padding: '0.2rem 0.625rem', borderRadius: 100,
+                    marginBottom: '0.75rem',
+                  }}>
+                    {award.year}
+                  </div>
+                  <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1rem', fontWeight: 700, color: 'var(--primary-dark)', marginBottom: '0.625rem' }}>
+                    {award.title}
+                  </div>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-mid)', lineHeight: 1.7, margin: 0 }}>
+                    {award.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
