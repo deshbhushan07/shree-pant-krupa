@@ -167,8 +167,11 @@ img { max-width: 100%; height: auto; display: block; }
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
   transition: var(--transition);
   min-height: 70px;
