@@ -14,7 +14,7 @@ const slides = [
     id:       1,
     image:    millRollingImg,
     eyebrow:  "Est. Manufacturer · Kolhapur",
-    title:    "Welcome to Shree Pant Krupa Paper Board",
+    title:    "Welcome to Shri Pant Krupa Paper Board",
     subtitle: "Kolhapur's trusted paper board manufacturer — delivering premium quality to packaging industries across India.",
     cta:      "Explore Products",
     ctaPath:  "/products",
