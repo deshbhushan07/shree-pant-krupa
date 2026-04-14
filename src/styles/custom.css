@@ -226,7 +226,7 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--text-dark) !important;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 1.5rem 0.75rem !important;
+  padding: 0.9rem 0.75rem !important;
   position: relative;
   transition: var(--transition);
 }

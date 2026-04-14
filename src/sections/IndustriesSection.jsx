@@ -1,5 +1,12 @@
 // src/sections/IndustriesSection.jsx
+import { useState } from 'react';
 import { FiBox, FiGrid, FiLayers, FiPackage, FiTruck, FiSettings } from 'react-icons/fi';
+import paperCones from '../assets/images/paper-cones.jpeg';
+import poyTubes from '../assets/images/poy-fdy-tubes.jpg';
+import filmCores from '../assets/images/film-cores.jpg';
+import edgeProtector from '../assets/images/edge-protector.webp';
+import c1sBoard from '../assets/images/c1s-board.jpg';
+import dtyTubes from '../assets/images/dty-tubes.jpg';
 
 const INDUSTRIES = [
   { icon: <FiBox />, title: 'Packaging Industry', desc: 'Supplying robust paper board for rigid and flexible packaging solutions across India.' },
@@ -8,6 +15,45 @@ const INDUSTRIES = [
   { icon: <FiPackage />, title: 'Industrial Packaging', desc: 'Heavy-duty board grades for machinery, automotive, and electronics packaging.' },
   { icon: <FiTruck />, title: 'E-Commerce & Logistics', desc: 'Lightweight yet strong kraft papers for e-commerce fulfillment and courier packaging.' },
   { icon: <FiSettings />, title: 'Printing & Publishing', desc: 'Smooth coated boards for high-quality printing, book binding and stationery.' },
+];
+
+const PRODUCT_SHOWCASE = [
+  {
+    image: paperCones,
+    name: 'Paper Cones',
+    category: 'Paper & Paper Boards',
+    desc: 'High-strength paper cones manufactured from premium kraft board, used in textile yarn winding, thread packaging, and industrial applications. Available in various sizes and angles.',
+  },
+  {
+    image: poyTubes,
+    name: 'POY / FDY Tubes',
+    category: 'Paper & Paper Boards',
+    desc: 'Precision-engineered paper tubes for POY and FDY yarn winding in textile mills. Excellent dimensional accuracy, high radial compression strength, and consistent wall thickness.',
+  },
+  {
+    image: filmCores,
+    name: 'Film Cores',
+    category: 'Specialty Boards',
+    desc: 'Industrial film cores with Ply bond 700 J/m2 and TTP 900 (Ply bond 900 J/m2) for BOPP, PET, CPP and other plastic film winding applications requiring high strength.',
+  },
+  {
+    image: edgeProtector,
+    name: 'Edge Protector / Angel Board',
+    category: 'Paper & Paper Boards',
+    desc: 'L-shaped edge protectors made from solid fibre or honeycomb board, protecting goods from damage during storage, handling and transport. Custom lengths available.',
+  },
+  {
+    image: c1sBoard,
+    name: 'C1S (Coated One Side)',
+    category: 'Pearl Quality - Speciality Coated Grades',
+    desc: 'Premium coated one side board with smooth glossy surface on one side, ideal for high-quality printing, packaging, labels, book covers and premium cartons.',
+  },
+  {
+    image: dtyTubes,
+    name: 'DTY Tubes',
+    category: 'Paper & Paper Boards',
+    desc: 'Draw Textured Yarn (DTY) paper tubes engineered for high-speed winding in textile manufacturing. Superior strength, smooth inner surface, and precise dimensions.',
+  },
 ];
 
 const TRUSTED_CLIENTS = [
@@ -34,35 +80,90 @@ const TRUSTED_CLIENTS = [
 ];
 
 export function IndustriesSection() {
+  const [showAll, setShowAll] = useState(false);
+  const visibleProducts = showAll ? PRODUCT_SHOWCASE : PRODUCT_SHOWCASE.slice(0, 4);
+
   return (
     <section className="section-padded section-bg-cream">
       <div className="container">
+
         <div className="text-center mb-5">
           <div className="section-eyebrow">Industries We Serve</div>
           <div className="divider-accent center" />
-          <h2 className="section-title">Trusted Across Industries</h2>
+          <h2 className="section-title">Products Made Using Our Board</h2>
           <p className="section-lead mx-auto mt-3">
-            Our paper board products serve a wide range of industries requiring consistent quality and reliable supply chains.
+            Our paper boards power a wide range of industrial products — from textile tubes to specialty packaging across India.
           </p>
         </div>
 
-        <div className="row g-4 mb-5">
-          {INDUSTRIES.map((ind, i) => (
-            <div key={i} className="col-lg-4 col-md-6">
-              <div className="industry-card">
-                <div className="industry-icon">{ind.icon}</div>
-                <div className="industry-title">{ind.title}</div>
-                <p style={{ fontSize: '0.88rem', color: 'var(--text-mid)', lineHeight: 1.7, margin: 0 }}>
-                  {ind.desc}
-                </p>
+        <div className="row g-4 mb-4">
+          {visibleProducts.map((product, i) => (
+            <div key={i} className="col-lg-3 col-md-6">
+              <div style={{
+                background: '#fff',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-md)',
+                overflow: 'hidden',
+                height: '100%',
+                transition: 'var(--transition)',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                <div style={{ height: 200, overflow: 'hidden', background: 'var(--cream)' }}>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                    onError={e => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:0.82rem;text-align:center;padding:1rem">📦<br/>Image coming soon</div>';
+                    }}
+                  />
+                </div>
+                <div style={{ padding: '1rem 1.25rem 1.25rem' }}>
+                  <div style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.4rem' }}>
+                    {product.category}
+                  </div>
+                  <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1rem', fontWeight: 700, color: 'var(--primary-dark)', marginBottom: '0.5rem' }}>
+                    {product.name}
+                  </div>
+                  <div style={{ height: 1, background: 'var(--border)', marginBottom: '0.75rem' }} />
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-mid)', lineHeight: 1.7, margin: 0 }}>
+                    {product.desc}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Trusted Clients */}
-        <div style={{ height: 1, background: 'var(--border)', margin: '1rem 0 3.5rem' }} />
+        {/* View More / Less */}
+        <div className="text-center mb-2">
+          <button
+            onClick={() => setShowAll(s => !s)}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              padding: '0.75rem 2rem',
+              background: showAll ? 'transparent' : 'var(--primary)',
+              color: showAll ? 'var(--primary)' : '#fff',
+              border: '2px solid var(--primary)',
+              borderRadius: 'var(--radius)', cursor: 'pointer',
+              fontSize: '0.85rem', fontWeight: 600,
+              fontFamily: 'var(--ff-body)', letterSpacing: '0.05em',
+              textTransform: 'uppercase', transition: 'all 0.3s ease',
+            }}
+          >
+            {showAll ? 'Show Less ↑' : 'View All Products ↓'}
+          </button>
+        </div>
 
+        {/* Divider */}
+        <div style={{ height: 1, background: 'var(--border)', margin: '3.5rem 0' }} />
+
+        {/* Trusted Clients */}
         <div className="text-center mb-4">
           <div className="section-eyebrow">What Our Clients Say</div>
           <div className="divider-accent center" />
@@ -84,45 +185,17 @@ export function IndustriesSection() {
                 onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
                 onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
               >
-                {/* Quote mark */}
-                <div style={{
-                  fontSize: '4rem', lineHeight: 1,
-                  color: 'var(--accent)', opacity: 0.15,
-                  fontFamily: 'Georgia',
-                  position: 'absolute', top: 12, left: 20,
-                }}>
+                <div style={{ fontSize: '4rem', lineHeight: 1, color: 'var(--accent)', opacity: 0.15, fontFamily: 'Georgia', position: 'absolute', top: 12, left: 20 }}>
                   "
                 </div>
-
-                {/* Stars */}
                 <div style={{ color: '#f59e0b', fontSize: '0.9rem', marginBottom: '1rem', letterSpacing: 2 }}>
                   ★★★★★
                 </div>
-
-                {/* Quote */}
-                <p style={{
-                  fontSize: '0.9rem',
-                  color: 'var(--text-mid)',
-                  lineHeight: 1.8,
-                  fontStyle: 'italic',
-                  marginBottom: '1.5rem',
-                }}>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-mid)', lineHeight: 1.8, fontStyle: 'italic', marginBottom: '1.5rem' }}>
                   "{client.quote}"
                 </p>
-
-                {/* Client info */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
-                  <div style={{
-                    width: 44, height: 44,
-                    borderRadius: '50%',
-                    background: client.color,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#fff',
-                    fontSize: '0.78rem',
-                    fontWeight: 700,
-                    flexShrink: 0,
-                    letterSpacing: '0.05em',
-                  }}>
+                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: client.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '0.78rem', fontWeight: 700, flexShrink: 0, letterSpacing: '0.05em' }}>
                     {client.initials}
                   </div>
                   <div>
