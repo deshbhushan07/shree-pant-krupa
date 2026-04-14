@@ -1,50 +1,64 @@
-// src/pages/Industries.jsx
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiBox, FiGrid, FiLayers, FiPackage, FiTruck, FiSettings, FiCheckCircle } from 'react-icons/fi';
 import { CTA } from '../sections/IndustriesSection';
-import { useScrollAnimation } from '../hooks/useAnimations';
+import paperCones from '../assets/images/paper-cones.jpeg';
+import poyTubes from '../assets/images/poy-fdy-tubes.jpg';
+import filmCores from '../assets/images/film-cores.jpg';
+import edgeProtector from '../assets/images/edge-protector.webp';
+import c1sBoard from '../assets/images/c1s-board.jpg';
+import dtyTubes from '../assets/images/dty-tubes.jpg';
 
-const INDUSTRIES = [
+const ALL_PRODUCTS = [
   {
-    icon: <FiBox size={28} />,
-    title: 'Packaging Industry',
-    desc: 'We supply premium paper boards to packaging manufacturers who require consistent GSM, strength, and surface finish for primary and secondary packaging.',
-    products: ['Duplex Board', 'Kraft Liner', 'Mill Board'],
+    image: paperCones,
+    name: 'Paper Cones',
+    category: 'Paper & Paper Boards',
+    desc: 'High-strength paper cones manufactured from premium kraft board, used in textile yarn winding, thread packaging, and industrial applications. Available in various sizes and angles.',
+    uses: ['Textile yarn winding', 'Thread packaging', 'Industrial winding'],
   },
   {
-    icon: <FiGrid size={28} />,
-    title: 'Corrugated Box Manufacturers',
-    desc: 'Providing corrugating medium, test liners, and kraft liners for manufacturing 3-ply, 5-ply, and 7-ply corrugated boards for all industries.',
-    products: ['Corrugated Medium', 'Kraft Liner', 'Test Liner'],
+    image: poyTubes,
+    name: 'POY / FDY Tubes',
+    category: 'Paper & Paper Boards',
+    desc: 'Precision-engineered paper tubes for POY and FDY yarn winding in textile mills. Excellent dimensional accuracy, high radial compression strength, and consistent wall thickness.',
+    uses: ['POY yarn winding', 'FDY yarn winding', 'Textile mills'],
   },
   {
-    icon: <FiLayers size={28} />,
-    title: 'Paper Converters',
-    desc: 'Raw board materials for converting into specialty packaging, laminates, foil boards, and printing substrates for various end uses.',
-    products: ['Mill Board', 'Duplex Board', 'Grey Board'],
+    image: filmCores,
+    name: 'Film Cores',
+    category: 'Specialty Boards',
+    desc: 'Industrial film cores with Ply bond 700 J/m2 and TTP 900 (Ply bond 900 J/m2) for BOPP, PET, CPP and other plastic film winding applications requiring high strength.',
+    uses: ['BOPP film winding', 'PET film cores', 'CPP packaging'],
   },
   {
-    icon: <FiPackage size={28} />,
-    title: 'Industrial Packaging',
-    desc: 'Heavy-duty board grades for machinery, automotive spare parts, electronics, and engineering goods requiring robust protective packaging.',
-    products: ['Grey Board', 'Rigid Board', 'Mill Board'],
+    image: edgeProtector,
+    name: 'Edge Protector / Angel Board',
+    category: 'Paper & Paper Boards',
+    desc: 'L-shaped edge protectors made from solid fibre or honeycomb board, protecting goods from damage during storage, handling and transport. Custom lengths available.',
+    uses: ['Cargo protection', 'Storage safety', 'Transport packaging'],
   },
   {
-    icon: <FiTruck size={28} />,
-    title: 'E-Commerce & Logistics',
-    desc: 'Lightweight yet strong kraft papers and liner boards for e-commerce fulfillment, courier packaging and retail-ready packaging solutions.',
-    products: ['Kraft Paper', 'Packing Board', 'Test Liner'],
+    image: c1sBoard,
+    name: 'C1S (Coated One Side)',
+    category: 'Pearl Quality - Speciality Coated Grades',
+    desc: 'Premium coated one side board with smooth glossy surface on one side, ideal for high-quality printing, packaging, labels, book covers and premium cartons.',
+    uses: ['Premium cartons', 'Book covers', 'Labels & packaging'],
   },
   {
-    icon: <FiSettings size={28} />,
-    title: 'Printing & Publishing',
-    desc: 'Smooth coated boards for high-quality offset and digital printing, book binding, stationery, and premium packaging with print.',
-    products: ['Duplex Board', 'Chrome Board', 'Art Board'],
+    image: dtyTubes,
+    name: 'DTY Tubes',
+    category: 'Paper & Paper Boards',
+    desc: 'Draw Textured Yarn (DTY) paper tubes engineered for high-speed winding in textile manufacturing. Superior strength, smooth inner surface, and precise dimensions.',
+    uses: ['DTY yarn winding', 'High-speed winding', 'Textile manufacturing'],
   },
 ];
 
 export default function Industries() {
-  useScrollAnimation();
+  const [active, setActive] = useState('All');
+
+  const categories = ['All', ...new Set(ALL_PRODUCTS.map(p => p.category))];
+  const filtered = active === 'All' ? ALL_PRODUCTS : ALL_PRODUCTS.filter(p => p.category === active);
+
   return (
     <>
       <div className="page-header">
@@ -52,37 +66,105 @@ export default function Industries() {
           <div className="page-header-breadcrumb"><Link to="/">Home</Link> / Industries</div>
           <h1 className="page-header-title mt-2">Industries We Serve</h1>
           <p style={{ color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem' }}>
-            Trusted paper board supplier across diverse industries
+            Products made possible by Shri Pant Krupa Paper Boards
           </p>
         </div>
       </div>
 
       <section className="section-padded">
         <div className="container">
+
+          <div className="text-center mb-5">
+            <div className="section-eyebrow">What We Enable</div>
+            <div className="divider-accent center" />
+            <h2 className="section-title">Products Built With Our Boards</h2>
+            <p className="section-lead mx-auto mt-3">
+              From textile tubes to film cores — industries across India rely on our paper boards to manufacture quality end products.
+            </p>
+          </div>
+
+          {/* Category filter */}
+          <div className="d-flex flex-wrap gap-2 justify-content-center mb-5">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActive(cat)}
+                style={{
+                  padding: '0.5rem 1.25rem', borderRadius: 100, cursor: 'pointer',
+                  border: '1.5px solid',
+                  borderColor: active === cat ? 'var(--primary)' : 'var(--border)',
+                  background: active === cat ? 'var(--primary)' : 'transparent',
+                  color: active === cat ? '#fff' : 'var(--text-mid)',
+                  fontSize: '0.82rem', fontWeight: 500,
+                  transition: 'all 0.2s ease', fontFamily: 'var(--ff-body)'
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
           <div className="row g-4">
-            {INDUSTRIES.map((ind, i) => (
-              <div key={i} className={`col-lg-6 fade-in delay-${Math.min(i % 3 + 1, 3)}`}>
-                <div style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '2rem', height: '100%', transition: 'all 0.3s ease' }}>
-                  <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-                    <div style={{ width: 60, height: 60, background: 'var(--cream)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', flexShrink: 0 }}>
-                      {ind.icon}
+            {filtered.map((product, i) => (
+              <div key={i} className="col-lg-4 col-md-6">
+                <div style={{
+                  background: '#fff',
+                  border: '1px solid var(--border)',
+                  borderRadius: 'var(--radius-md)',
+                  overflow: 'hidden',
+                  height: '100%',
+                  transition: 'var(--transition)',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
+                >
+                  {/* Image */}
+                  <div style={{ height: 240, overflow: 'hidden', background: 'var(--cream)' }}>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                      onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                      onError={e => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:0.85rem;text-align:center;padding:1rem">📦<br/>Image coming soon</div>';
+                      }}
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div style={{ padding: '1.5rem' }}>
+                    <div style={{ fontSize: '0.68rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.4rem' }}>
+                      {product.category}
                     </div>
-                    <div>
-                      <h3 style={{ fontFamily: 'var(--ff-heading)', fontSize: '1.25rem', color: 'var(--primary-dark)', marginBottom: '0.75rem' }}>{ind.title}</h3>
-                      <p style={{ fontSize: '0.88rem', color: 'var(--text-mid)', lineHeight: 1.8, marginBottom: '1rem' }}>{ind.desc}</p>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                        {ind.products.map(p => (
-                          <span key={p} style={{ background: 'var(--cream)', color: 'var(--primary)', fontSize: '0.75rem', fontWeight: 600, padding: '0.25rem 0.75rem', borderRadius: 100, border: '1px solid var(--border)' }}>
-                            {p}
-                          </span>
-                        ))}
-                      </div>
+                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--primary-dark)', marginBottom: '0.75rem' }}>
+                      {product.name}
+                    </div>
+                    <div style={{ height: 1, background: 'var(--border)', marginBottom: '0.875rem' }} />
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-mid)', lineHeight: 1.75, marginBottom: '1rem' }}>
+                      {product.desc}
+                    </p>
+
+                    {/* Use cases */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                      {product.uses.map(use => (
+                        <span key={use} style={{
+                          background: 'var(--cream)', color: 'var(--primary)',
+                          fontSize: '0.72rem', fontWeight: 600,
+                          padding: '0.2rem 0.625rem', borderRadius: 100,
+                          border: '1px solid var(--border)'
+                        }}>
+                          {use}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
