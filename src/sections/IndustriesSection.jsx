@@ -7,6 +7,7 @@ import filmCores from '../assets/images/film-cores.jpg';
 import edgeProtector from '../assets/images/edge-protector.webp';
 import c1sBoard from '../assets/images/c1s-board.jpg';
 import dtyTubes from '../assets/images/dty-tubes.jpg';
+import ownerImg from '../assets/images/big_owner.jpeg';
 
 const INDUSTRIES = [
   { icon: <FiBox />, title: 'Packaging Industry', desc: 'Supplying robust paper board for rigid and flexible packaging solutions across India.' },
@@ -58,24 +59,29 @@ const PRODUCT_SHOWCASE = [
 
 const TRUSTED_CLIENTS = [
   {
-    name: 'Packaging Industry',
-    location: 'Maharashtra, India',
-    quote: 'Consistent quality and on-time delivery every single time. Shri Pant Krupa is our go-to supplier for kraft paper.',
-    initials: 'PI',
-    color: '#1a3a2e',
+    quote:
+      "We have been sourcing kraft and duplex boards from this supplier for over three years. The GSM consistency is excellent and delivery timelines are always met. Our production team rarely faces rejections due to quality issues. Highly reliable partner for our paper requirements.",
+    name: "JK Paper India",
+    location: "Procurement Manager, Delhi NCR",
+    initials: "JK",
+    color: "#1D9E75",
   },
   {
-    name: 'Corrugated Box Manufacturer',
-    location: 'Kolhapur, Maharashtra',
-    quote: 'Their mill board grades are exactly what we need for our 5-ply boxes. Reliable pricing and great support.',
-    initials: 'CB',
-    color: '#c8963e',
+    quote:
+      "Aaradhya Paper has been growing steadily and we needed a supplier who could scale with us. The team here understood our volume needs and offered flexible lot sizes without compromising on quality. The board finish we receive is smooth and print-ready. Genuinely satisfied with the service.",
+    name: "Aaradhya Paper",
+    location: "Mankapur, Karnataka",
+    initials: "AP",
+    color: "#378ADD",
   },
+
   {
-    name: 'Industrial Packaging Co.',
-    location: 'Pune, Maharashtra',
-    quote: "We've been sourcing duplex board from them for 3+ years. Quality never drops and bulk supply is always ready.",
-    color: '#2d5c4a',
+    quote:
+      "We run a paper trading and converting business in Sangli and have worked with many suppliers over the years. This one stands out for honest communication and timely dispatch. The duplex and grey board we procure is well-packed and reaches us without damage. We recommend them to anyone in the industry.",
+    name: "Salokhe Paper",
+    location: "Ishwarpur, Sangli",
+    initials: "SP",
+    color: "#7F77DD",
   },
 ];
 
@@ -235,24 +241,75 @@ export function WhyChooseUs() {
       <div className="container">
         <div className="row align-items-center g-5">
           <div className="col-lg-5">
-            <div className="section-eyebrow">Why Choose Us</div>
-            <div className="divider-accent" />
-            <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
-            <p className="section-lead">
-              With over 11+ years of experience in the paper board industry, we've built our reputation on quality, reliability, and exceptional customer service.
-            </p>
-            <div className="mt-4" style={{ background: 'var(--cream)', padding: '1.5rem', borderRadius: 'var(--radius-md)', borderLeft: '4px solid var(--accent)' }}>
-              <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1.1rem', color: 'var(--primary-dark)', marginBottom: '0.5rem' }}>
-                "Shrikant D. Patil"
-              </div>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-mid)', fontStyle: 'italic' }}>
-                Proprietor, Shri Pant Krupa Paper Board
-              </div>
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-mid)', marginTop: '0.75rem', lineHeight: 1.7, marginBottom: 0 }}>
-                "Our mission is to provide the paper board industry with materials that exceed expectations — consistent quality, fair pricing, and reliable delivery, every time."
-              </p>
-            </div>
-          </div>
+  <div className="section-eyebrow">Why Choose Us</div>
+  <div className="divider-accent" />
+  <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
+  <p className="section-lead">
+    With over 25+ years of experience in the paper board industry, we've built our reputation on quality, reliability, and exceptional customer service.
+  </p>
+
+  {/* Owner Photo Card */}
+  <div style={{
+    marginTop: '2rem',
+    position: 'relative',
+    display: 'inline-block',
+    width: '100%',
+  }}>
+    {/* Accent offset border */}
+    <div style={{
+      position: 'absolute', top: 10, left: 10, right: -10, bottom: -10,
+      border: '3px solid var(--accent)',
+      borderRadius: 16, zIndex: 0,
+    }} />
+
+    <div style={{
+      position: 'relative', zIndex: 1,
+      borderRadius: 16, overflow: 'hidden',
+      boxShadow: '0 20px 60px rgba(26,58,46,0.18)',
+    }}>
+      <img
+        src={ownerImg}
+        alt="Shrikant D. Patil — Proprietor"
+        style={{
+          width: '100%',
+          maxHeight: 340,
+          objectFit: 'cover',
+          objectPosition: 'top',
+          display: 'block',
+        }}
+      />
+
+      {/* Gradient overlay with name */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        background: 'linear-gradient(to top, rgba(15,35,28,0.92) 0%, transparent 100%)',
+        padding: '2rem 1.5rem 1.25rem',
+      }}>
+        <div style={{
+          fontFamily: 'var(--ff-heading)',
+          fontSize: '1.15rem', fontWeight: 700,
+          color: '#fff', lineHeight: 1.2,
+        }}>
+          Shrikant D. Patil
+        </div>
+        <div style={{
+          fontSize: '0.72rem', color: 'var(--accent-light)',
+          letterSpacing: '0.12em', textTransform: 'uppercase',
+          marginTop: 4,
+        }}>
+          Founder & Proprietor
+        </div>
+        <p style={{
+          fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)',
+          marginTop: '0.5rem', lineHeight: 1.6, marginBottom: 0,
+          fontStyle: 'italic',
+        }}>
+          "Consistent quality, fair pricing, and reliable delivery — every time."
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
           <div className="col-lg-7">
             <div className="row g-3">
