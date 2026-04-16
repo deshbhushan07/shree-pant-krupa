@@ -1,5 +1,5 @@
 // src/sections/IndustriesSection.jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FiBox, FiGrid, FiLayers, FiPackage, FiTruck, FiSettings } from 'react-icons/fi';
 import paperCones from '../assets/images/paper-cones.jpeg';
 import poyTubes from '../assets/images/poy-fdy-tubes.jpg';
@@ -125,176 +125,236 @@ const TRUSTED_CLIENTS = [
 ];
 
 function TestimonialSlider() {
-  const visible = 3;
-  const extended = [...TRUSTED_CLIENTS, ...TRUSTED_CLIENTS, ...TRUSTED_CLIENTS]; // triple for seamless loop
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const trackRef = useRef(null);
+  const wrapRef = useRef(null);
+  const total = TRUSTED_CLIENTS.length;
 
-  const [index, setIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  // 👇 Responsive visible cards
+  const getVisible = () => {
+    if (window.innerWidth < 640) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
 
-  // Auto-slide with pause on hover
+  // 👇 Card width calculation
+  const getCardWidth = () => {
+    if (!wrapRef.current) return 300;
+    const vis = getVisible();
+    const gap = 20;
+    const wrapW = wrapRef.current.offsetWidth - (vis > 1 ? 64 : 0);
+    return (wrapW - gap * (vis - 1)) / vis;
+  };
+
+  const [cardW, setCardW] = useState(300);
+
+  // 👇 Update width on resize
   useEffect(() => {
-    if (isPaused) return;
-    
-    const interval = setInterval(() => {
-      setIndex(prev => prev + 1);
-    }, 3000); // 5 seconds
+    const update = () => {
+      if (wrapRef.current) {
+        setCardW(getCardWidth());
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
-    return () => clearInterval(interval);
-  }, [isPaused]); // Added proper dependency
+  // 👇 Offset logic
+  const getOffset = (idx) => {
+    return (idx + total) * (cardW + 20);
+  };
 
-  // Smooth reset for infinite loop
+  // 👇 Auto slide
   useEffect(() => {
-    if (index >= TRUSTED_CLIENTS.length * 2) {
-      // Reset without animation jump
-      setIndex(prev => prev - TRUSTED_CLIENTS.length);
+    if (paused) return;
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % total);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [paused, total]);
+
+  // 👇 Apply transform
+  useEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(-${getOffset(current)}px)`;
     }
-  }, [index]); // Reset when index reaches limit
+  }, [current, cardW]);
 
-  // Manual navigation functions (optional)
-  const handlePrev = () => {
-    setIndex(prev => prev - 1);
-  };
-
-  const handleNext = () => {
-    setIndex(prev => prev + 1);
-  };
+  // 👇 Infinite loop
+  const extended = [
+    ...TRUSTED_CLIENTS,
+    ...TRUSTED_CLIENTS,
+    ...TRUSTED_CLIENTS,
+  ];
 
   return (
-    <div 
-      style={{ overflow: 'hidden', position: 'relative' }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+    <div
+      ref={wrapRef}
+      style={{
+        overflow: "hidden",
+        position: "relative",
+        padding: "2rem 3rem 2rem", // ✅ improved spacing
+      }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
-      {/* Optional Navigation Buttons */}
-      <button
-        onClick={handlePrev}
-        style={{
-          position: 'absolute',
-          left: '10px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          zIndex: 10,
-          background: 'white',
-          border: '1px solid var(--border)',
-          borderRadius: '50%',
-          width: '32px',
-          height: '32px',
-          cursor: 'pointer',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-        }}
-      >
-        ←
-      </button>
+      {/* Arrows */}
+      {["prev", "next"].map((dir) => (
+        <button
+          key={dir}
+          onClick={() =>
+            setCurrent((prev) =>
+              dir === "next"
+                ? (prev + 1) % total
+                : (prev - 1 + total) % total
+            )
+          }
+          style={{
+            position: "absolute",
+            [dir === "prev" ? "left" : "right"]: 0,
+            top: "55%",
+            transform: "translateY(-50%)",
+            width: 34,
+            height: 34,
+            borderRadius: "50%",
+            background: "#fff",
+            border: "1px solid var(--border)",
+            cursor: "pointer",
+            zIndex: 2,
+            fontSize: 14,
+            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {dir === "prev" ? "←" : "→"}
+        </button>
+      ))}
 
-      <button
-        onClick={handleNext}
-        style={{
-          position: 'absolute',
-          right: '10px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          zIndex: 10,
-          background: 'white',
-          border: '1px solid var(--border)',
-          borderRadius: '50%',
-          width: '32px',
-          height: '32px',
-          cursor: 'pointer',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-        }}
-      >
-        →
-      </button>
-
+      {/* Track */}
       <div
+        ref={trackRef}
         style={{
-          display: 'flex',
-          gap: '1.5rem',
-          transform: `translateX(-${index * (100 / visible)}%)`,
-          transition: 'transform 0.6s ease',
+          display: "flex",
+          gap: 20,
+          transition: "transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)",
         }}
       >
         {extended.map((client, i) => (
           <div
             key={i}
             style={{
-              minWidth: '300px',
-              maxWidth: '300px',
               flexShrink: 0,
-            }}
-          >
-            <div style={{
-              background: '#fff',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--radius-lg)',
-              padding: '1.5rem',
-              height: '100%',
-              position: 'relative',
-              boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02)',
-              transition: 'all 0.3s ease',
+              width: cardW,
+              background: "#fff",
+              border: "1px solid var(--border)",
+              borderRadius: 16,
+              padding: "1.5rem",
+              position: "relative",
+              transition: "all 0.25s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = '0 20px 35px -8px rgba(0,0,0,0.15), 0 10px 15px -6px rgba(0,0,0,0.05)';
+              e.currentTarget.style.transform = "translateY(-4px)";
+              e.currentTarget.style.boxShadow =
+                "0 16px 40px rgba(26,58,46,0.12)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02)';
-            }}>
-              
-              <div style={{
-                fontSize: '3rem',
-                color: 'var(--accent)',
-                opacity: 0.15,
-                position: 'absolute',
-                top: 8,
-                left: 16
-              }}>
-                "
-              </div>
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            <div
+              style={{
+                fontSize: 40,
+                color: "var(--border)",
+                position: "absolute",
+                top: 10,
+                left: 16,
+              }}
+            >
+              "
+            </div>
 
-              <div style={{ color: '#f59e0b', marginBottom: '0.75rem', fontSize: '0.85rem' }}>
-                ★★★★★
-              </div>
+            <div
+              style={{
+                color: "#f59e0b",
+                marginBottom: 8,
+                fontSize: 13,
+              }}
+            >
+              ★★★★★
+            </div>
 
-              <p style={{
-                fontSize: '0.82rem',
-                color: 'var(--text-mid)',
+            <p
+              style={{
+                fontSize: "0.82rem",
+                color: "var(--text-mid)",
                 lineHeight: 1.7,
-                fontStyle: 'italic',
-                marginBottom: '1.25rem'
-              }}>
-                "{client.quote}"
-              </p>
+                fontStyle: "italic",
+                marginBottom: "1.25rem",
+              }}
+            >
+              "{client.quote}"
+            </p>
 
-              <div style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
-                <div style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '50%',
-                  background: client.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
+            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+              <div
+                style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: "50%",
+                  background: client.color + "20",
+                  color: client.color,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   fontWeight: 700,
-                  fontSize: '0.85rem',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                }}>
-                  {client.initials}
-                </div>
+                  fontSize: 13,
+                }}
+              >
+                {client.initials}
+              </div>
 
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: '0.85rem' }}>
-                    {client.name}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-light)' }}>
-                    {client.location}
-                  </div>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: "0.85rem" }}>
+                  {client.name}
+                </div>
+                <div style={{ fontSize: "0.72rem", color: "var(--text-light)" }}>
+                  {client.location}
                 </div>
               </div>
             </div>
           </div>
+        ))}
+      </div>
+
+      {/* Dots */}
+      <div
+        style={{
+          display: "flex",
+          gap: 6,
+          justifyContent: "center",
+          marginTop: "1.5rem",
+        }}
+      >
+        {TRUSTED_CLIENTS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            style={{
+              width: i === current ? 20 : 6,
+              height: 6,
+              borderRadius: i === current ? 3 : "50%",
+              background:
+                i === current ? "var(--primary)" : "var(--border)",
+              border: "none",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+            }}
+          />
         ))}
       </div>
     </div>
