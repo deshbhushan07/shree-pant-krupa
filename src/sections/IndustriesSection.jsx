@@ -1,5 +1,5 @@
 // src/sections/IndustriesSection.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiBox, FiGrid, FiLayers, FiPackage, FiTruck, FiSettings } from 'react-icons/fi';
 import paperCones from '../assets/images/paper-cones.jpeg';
 import poyTubes from '../assets/images/poy-fdy-tubes.jpg';
@@ -60,30 +60,246 @@ const PRODUCT_SHOWCASE = [
 const TRUSTED_CLIENTS = [
   {
     quote:
-      "We have been sourcing kraft and duplex boards from this supplier for over three years. The GSM consistency is excellent and delivery timelines are always met. Our production team rarely faces rejections due to quality issues. Highly reliable partner for our paper requirements.",
-    name: "JK Paper India",
-    location: "Procurement Manager, Delhi NCR",
-    initials: "JK",
+      "We’ve been working with them for bulk board supply, and the consistency in GSM and finish has really helped streamline our production. Their team is responsive and understands industrial requirements well.",
+    name: "AM Core Industries",
+    location: "Bengaluru",
+    initials: "AM",
     color: "#1D9E75",
   },
   {
     quote:
-      "Aaradhya Paper has been growing steadily and we needed a supplier who could scale with us. The team here understood our volume needs and offered flexible lot sizes without compromising on quality. The board finish we receive is smooth and print-ready. Genuinely satisfied with the service.",
-    name: "Aaradhya Paper",
-    location: "Mankapur, Karnataka",
-    initials: "AP",
+      "For our packaging operations, timely material availability is critical. These guys have been very dependable with dispatch schedules, and the board quality has been uniform across batches.",
+    name: "Konvertor Packing Solutions Pvt Ltd",
+    location: "Pune",
+    initials: "KP",
     color: "#378ADD",
   },
-
   {
     quote:
-      "We run a paper trading and converting business in Sangli and have worked with many suppliers over the years. This one stands out for honest communication and timely dispatch. The duplex and grey board we procure is well-packed and reaches us without damage. We recommend them to anyone in the industry.",
-    name: "Salokhe Paper",
-    location: "Ishwarpur, Sangli",
+      "We appreciate the clean finish and strength of the boards we receive. It works well for our packaging needs, and we’ve seen a noticeable reduction in material wastage.",
+    name: "Shree Packaging",
+    location: "Murbad",
     initials: "SP",
     color: "#7F77DD",
   },
+  {
+    quote:
+      "As a paper tube manufacturer, we need reliable raw material. The supply has been consistent, and the board performs well during winding and conversion processes.",
+    name: "Samarth Paper Tube",
+    location: "Pune",
+    initials: "ST",
+    color: "#F59E0B",
+  },
+  {
+    quote:
+      "We’ve sourced duplex and grey board multiple times, and the quality has remained stable. Packaging and delivery handling are also done properly, which avoids transit damage.",
+    name: "Pandurang Paper Tube",
+    location: "Pune",
+    initials: "PT",
+    color: "#EF4444",
+  },
+  {
+    quote:
+      "The team is easy to coordinate with and flexible when it comes to order quantities. The material we receive is well-suited for our tube manufacturing process.",
+    name: "Om Sai Paper Tube (Markad)",
+    location: "Pimpri Chinchwad",
+    initials: "OS",
+    color: "#10B981",
+  },
+  {
+    quote:
+      "We value their straightforward communication and commitment to timelines. It’s been a smooth experience working with them for our regular requirements.",
+    name: "Shivam Enterprise",
+    location: "Pune",
+    initials: "SE",
+    color: "#6366F1",
+  },
+  {
+    quote:
+      "Their board quality and supply reliability have supported our container production without interruptions. A dependable vendor for long-term collaboration.",
+    name: "Prime Container",
+    location: "Pune",
+    initials: "PC",
+    color: "#EC4899",
+  },
 ];
+
+function TestimonialSlider() {
+  const visible = 3;
+  const extended = [...TRUSTED_CLIENTS, ...TRUSTED_CLIENTS, ...TRUSTED_CLIENTS]; // triple for seamless loop
+
+  const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-slide with pause on hover
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const interval = setInterval(() => {
+      setIndex(prev => prev + 1);
+    }, 3000); // 5 seconds
+
+    return () => clearInterval(interval);
+  }, [isPaused]); // Added proper dependency
+
+  // Smooth reset for infinite loop
+  useEffect(() => {
+    if (index >= TRUSTED_CLIENTS.length * 2) {
+      // Reset without animation jump
+      setIndex(prev => prev - TRUSTED_CLIENTS.length);
+    }
+  }, [index]); // Reset when index reaches limit
+
+  // Manual navigation functions (optional)
+  const handlePrev = () => {
+    setIndex(prev => prev - 1);
+  };
+
+  const handleNext = () => {
+    setIndex(prev => prev + 1);
+  };
+
+  return (
+    <div 
+      style={{ overflow: 'hidden', position: 'relative' }}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Optional Navigation Buttons */}
+      <button
+        onClick={handlePrev}
+        style={{
+          position: 'absolute',
+          left: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+          background: 'white',
+          border: '1px solid var(--border)',
+          borderRadius: '50%',
+          width: '32px',
+          height: '32px',
+          cursor: 'pointer',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        }}
+      >
+        ←
+      </button>
+
+      <button
+        onClick={handleNext}
+        style={{
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+          background: 'white',
+          border: '1px solid var(--border)',
+          borderRadius: '50%',
+          width: '32px',
+          height: '32px',
+          cursor: 'pointer',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        }}
+      >
+        →
+      </button>
+
+      <div
+        style={{
+          display: 'flex',
+          gap: '1.5rem',
+          transform: `translateX(-${index * (100 / visible)}%)`,
+          transition: 'transform 0.6s ease',
+        }}
+      >
+        {extended.map((client, i) => (
+          <div
+            key={i}
+            style={{
+              minWidth: '300px',
+              maxWidth: '300px',
+              flexShrink: 0,
+            }}
+          >
+            <div style={{
+              background: '#fff',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-lg)',
+              padding: '1.5rem',
+              height: '100%',
+              position: 'relative',
+              boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02)',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = '0 20px 35px -8px rgba(0,0,0,0.15), 0 10px 15px -6px rgba(0,0,0,0.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02)';
+            }}>
+              
+              <div style={{
+                fontSize: '3rem',
+                color: 'var(--accent)',
+                opacity: 0.15,
+                position: 'absolute',
+                top: 8,
+                left: 16
+              }}>
+                "
+              </div>
+
+              <div style={{ color: '#f59e0b', marginBottom: '0.75rem', fontSize: '0.85rem' }}>
+                ★★★★★
+              </div>
+
+              <p style={{
+                fontSize: '0.82rem',
+                color: 'var(--text-mid)',
+                lineHeight: 1.7,
+                fontStyle: 'italic',
+                marginBottom: '1.25rem'
+              }}>
+                "{client.quote}"
+              </p>
+
+              <div style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }}>
+                <div style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: '50%',
+                  background: client.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                }}>
+                  {client.initials}
+                </div>
+
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.85rem' }}>
+                    {client.name}
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-light)' }}>
+                    {client.location}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+} 
 
 export function IndustriesSection() {
   const [showAll, setShowAll] = useState(false);
@@ -166,57 +382,16 @@ export function IndustriesSection() {
           </button>
         </div>
 
-        {/* Divider */}
+        {/* Trusted Clients Slider */}
         <div style={{ height: 1, background: 'var(--border)', margin: '3.5rem 0' }} />
 
-        {/* Trusted Clients */}
         <div className="text-center mb-4">
           <div className="section-eyebrow">What Our Clients Say</div>
           <div className="divider-accent center" />
           <h2 className="section-title">Trusted By Businesses Across India</h2>
         </div>
 
-        <div className="row g-4 justify-content-center">
-          {TRUSTED_CLIENTS.map((client, i) => (
-            <div key={i} className="col-lg-4 col-md-6">
-              <div style={{
-                background: '#fff',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-lg)',
-                padding: '2rem',
-                height: '100%',
-                position: 'relative',
-                transition: 'var(--transition)',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
-                onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
-              >
-                <div style={{ fontSize: '4rem', lineHeight: 1, color: 'var(--accent)', opacity: 0.15, fontFamily: 'Georgia', position: 'absolute', top: 12, left: 20 }}>
-                  "
-                </div>
-                <div style={{ color: '#f59e0b', fontSize: '0.9rem', marginBottom: '1rem', letterSpacing: 2 }}>
-                  ★★★★★
-                </div>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-mid)', lineHeight: 1.8, fontStyle: 'italic', marginBottom: '1.5rem' }}>
-                  "{client.quote}"
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: client.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '0.78rem', fontWeight: 700, flexShrink: 0, letterSpacing: '0.05em' }}>
-                    {client.initials}
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', fontWeight: 700, color: 'var(--primary-dark)' }}>
-                      {client.name}
-                    </div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', marginTop: '0.1rem' }}>
-                      {client.location}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <TestimonialSlider />
 
       </div>
     </section>

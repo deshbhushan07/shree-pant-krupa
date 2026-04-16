@@ -46,7 +46,11 @@ export default function Navbar() {
         <div className="d-flex align-items-center justify-content-between py-2">
 
           {/* Brand */}
-          <Link to="/" className="navbar-brand-custom">
+          <Link 
+                to="/" 
+                className="navbar-brand-custom"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          > 
               <img
                 src={logo}
                  alt="Shri Pant Krupa Logo"
@@ -86,7 +90,7 @@ export default function Navbar() {
                   background: '#fff', borderRadius: 8,
                   boxShadow: '0 8px 32px rgba(26,58,46,0.15)',
                   border: '1px solid var(--border)',
-                  minWidth: 200, zIndex: 1000,
+                  minWidth: 200, zIndex: 9999,
                   padding: '0.5rem 0',
                   animation: 'fadeInDown 0.15s ease'
                 }}>

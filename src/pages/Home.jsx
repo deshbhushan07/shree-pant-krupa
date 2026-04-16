@@ -35,7 +35,7 @@ export default function Home() {
             </div>
             <div className="col-md-4 text-md-end mt-2 mt-md-0">
               <a href="tel:+919876543210" style={{ color: 'var(--accent-light)', fontFamily: 'var(--ff-heading)', fontSize: '1rem', fontWeight: 600 }}>
-                📞 +91 98765 43210
+                📞 +91 70280 82100
               </a>
             </div>
           </div>
