@@ -163,7 +163,7 @@ export default function Footer() {
             >
               <div className="footer-contact-item">
                 <FaWhatsapp style={{ color: '#25d366', fontSize: '1rem' }} />
-                <span>+91 73978 49730</span>
+                <span>+91 70280 82100</span>
               </div>
             </a>
           </div>

@@ -1,6 +1,13 @@
 // src/sections/IndustriesSection.jsx
+// src/sections/IndustriesSection.jsx
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FiBox, FiGrid, FiLayers, FiPackage, FiTruck, FiSettings } from 'react-icons/fi';
+import { FiAward, FiShield, FiRefreshCw, FiUsers, FiZap, FiGlobe } from 'react-icons/fi';
+import { FiArrowRight, FiPhone } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
+
 import paperCones from '../assets/images/paper-cones.jpeg';
 import poyTubes from '../assets/images/poy-fdy-tubes.jpg';
 import filmCores from '../assets/images/film-cores.jpg';
@@ -8,9 +15,10 @@ import edgeProtector from '../assets/images/edge-protector.webp';
 import c1sBoard from '../assets/images/c1s-board.jpg';
 import dtyTubes from '../assets/images/dty-tubes.jpg';
 import ownerImg from '../assets/images/big_owner.jpeg';
-import firecrackers from "../assets/images/firecrackers.webp";
-import patravali from "../assets/images/Patravali.jpg";
-import angleBoardImg from "../assets/images/angle_board.jpeg";
+import omkarImg from "../assets/images/omkar_owner.png";
+import firecrackers from '../assets/images/firecrackers.webp';
+import patravali from '../assets/images/Patravali.jpg';
+import angleBoardImg from '../assets/images/angle_board.jpeg';
 
 const INDUSTRIES = [
   { icon: <FiBox />, title: 'Packaging Industry', desc: 'Supplying robust paper board for rigid and flexible packaging solutions across India.' },
@@ -148,242 +156,154 @@ const TRUSTED_CLIENTS = [
   },
 ];
 
+// ⭐ Simple Star Component
+const StarRating = ({ rating }) => {
+  return (
+    <div style={{ color: "#f59e0b", marginBottom: 10 }}>
+      {"★".repeat(rating)}
+    </div>
+  );
+};
+
 function TestimonialSlider() {
   const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const trackRef = useRef(null);
-  const wrapRef = useRef(null);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState("right");
+  const autoRef = useRef(null);
+
   const total = TRUSTED_CLIENTS.length;
 
-  // 👇 Responsive visible cards
-  const getVisible = () => {
-    if (window.innerWidth < 640) return 1;
-    if (window.innerWidth < 1024) return 2;
-    return 3;
+  const goTo = (index, dir = "right") => {
+    if (animating) return;
+    setDirection(dir);
+    setAnimating(true);
+    setTimeout(() => {
+      setCurrent(index);
+      setAnimating(false);
+    }, 300);
   };
 
-  // 👇 Card width calculation
-  const getCardWidth = () => {
-    if (!wrapRef.current) return 300;
-    const vis = getVisible();
-    const gap = 20;
-    const wrapW = wrapRef.current.offsetWidth - (vis > 1 ? 64 : 0);
-    return (wrapW - gap * (vis - 1)) / vis;
+  const prev = () => goTo((current - 1 + total) % total, "left");
+  const next = () => goTo((current + 1) % total, "right");
+
+  // ✅ Auto slide
+  useEffect(() => {
+    autoRef.current = setInterval(() => next(), 5000);
+    return () => clearInterval(autoRef.current);
+  }, [current]);
+
+  const resetAuto = () => {
+    clearInterval(autoRef.current);
+    autoRef.current = setInterval(() => next(), 5000);
   };
-
-  const [cardW, setCardW] = useState(300);
-
-  // 👇 Update width on resize
-  useEffect(() => {
-    const update = () => {
-      if (wrapRef.current) {
-        setCardW(getCardWidth());
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  // 👇 Offset logic
-  const getOffset = (idx) => {
-    return (idx + total) * (cardW + 20);
-  };
-
-  // 👇 Auto slide
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % total);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [paused, total]);
-
-  // 👇 Apply transform
-  useEffect(() => {
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translateX(-${getOffset(current)}px)`;
-    }
-  }, [current, cardW]);
-
-  // 👇 Infinite loop
-  const extended = [
-    ...TRUSTED_CLIENTS,
-    ...TRUSTED_CLIENTS,
-    ...TRUSTED_CLIENTS,
-  ];
 
   return (
-    <div
-      ref={wrapRef}
+    <section
       style={{
-        overflow: "hidden",
-        position: "relative",
-        padding: "2rem 3rem 2rem", // ✅ improved spacing
+        padding: "5rem 0",
+        background: "linear-gradient(135deg, #f8faff 0%, #eef3ff 100%)",
       }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
-      {/* Arrows */}
-      {["prev", "next"].map((dir) => (
-        <button
-          key={dir}
-          onClick={() =>
-            setCurrent((prev) =>
-              dir === "next"
-                ? (prev + 1) % total
-                : (prev - 1 + total) % total
-            )
-          }
-          style={{
-            position: "absolute",
-            [dir === "prev" ? "left" : "right"]: 0,
-            top: "55%",
-            transform: "translateY(-50%)",
-            width: 34,
-            height: 34,
-            borderRadius: "50%",
-            background: "#fff",
-            border: "1px solid var(--border)",
-            cursor: "pointer",
-            zIndex: 2,
-            fontSize: 14,
-            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {dir === "prev" ? "←" : "→"}
-        </button>
-      ))}
+      <div className="container">
 
-      {/* Track */}
-      <div
-        ref={trackRef}
-        style={{
-          display: "flex",
-          gap: 20,
-          transition: "transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)",
-        }}
-      >
-        {extended.map((client, i) => (
-          <div
-            key={i}
-            style={{
-              flexShrink: 0,
-              width: cardW,
-              background: "#fff",
-              border: "1px solid var(--border)",
-              borderRadius: 16,
-              padding: "1.5rem",
-              position: "relative",
-              transition: "all 0.25s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-4px)";
-              e.currentTarget.style.boxShadow =
-                "0 16px 40px rgba(26,58,46,0.12)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            <div
-              style={{
-                fontSize: 40,
-                color: "var(--border)",
-                position: "absolute",
-                top: 10,
-                left: 16,
-              }}
-            >
-              "
-            </div>
+       
+
+        {/* Card */}
+        <div className="row justify-content-center">
+          <div className="col-md-8 col-lg-6">
 
             <div
               style={{
-                color: "#f59e0b",
-                marginBottom: 8,
-                fontSize: 13,
+                background: "#fff",
+                padding: "2rem",
+                borderRadius: 16,
+                boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+                opacity: animating ? 0 : 1,
+                transform: animating
+                  ? `translateX(${direction === "right" ? "30px" : "-30px"})`
+                  : "translateX(0)",
+                transition: "all 0.3s ease",
               }}
             >
-              ★★★★★
-            </div>
+              <StarRating rating={5} />
 
-            <p
-              style={{
-                fontSize: "0.82rem",
-                color: "var(--text-mid)",
-                lineHeight: 1.7,
+              <p style={{
                 fontStyle: "italic",
-                marginBottom: "1.25rem",
-              }}
-            >
-              "{client.quote}"
-            </p>
+                color: "#444",
+                lineHeight: 1.7,
+                marginBottom: "1.5rem"
+              }}>
+                "{TRUSTED_CLIENTS[current].quote}"
+              </p>
 
-            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-              <div
-                style={{
-                  width: 38,
-                  height: 38,
+              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                <div style={{
+                  width: 45,
+                  height: 45,
                   borderRadius: "50%",
-                  background: client.color + "20",
-                  color: client.color,
+                  background: TRUSTED_CLIENTS[current].color,
+                  color: "#fff",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontWeight: 700,
-                  fontSize: 13,
-                }}
-              >
-                {client.initials}
-              </div>
-
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "0.85rem" }}>
-                  {client.name}
+                  fontWeight: "bold"
+                }}>
+                  {TRUSTED_CLIENTS[current].initials}
                 </div>
-                <div style={{ fontSize: "0.72rem", color: "var(--text-light)" }}>
-                  {client.location}
+
+                <div>
+                  <div style={{ fontWeight: 600 }}>
+                    {TRUSTED_CLIENTS[current].name}
+                  </div>
+                  <div style={{ fontSize: 12, color: "#777" }}>
+                    {TRUSTED_CLIENTS[current].location}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
 
-      {/* Dots */}
-      <div
-        style={{
-          display: "flex",
-          gap: 6,
-          justifyContent: "center",
-          marginTop: "1.5rem",
-        }}
-      >
-        {TRUSTED_CLIENTS.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            style={{
-              width: i === current ? 20 : 6,
-              height: 6,
-              borderRadius: i === current ? 3 : "50%",
-              background:
-                i === current ? "var(--primary)" : "var(--border)",
-              border: "none",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-            }}
-          />
-        ))}
+            {/* Controls */}
+            <div className="d-flex justify-content-between mt-4">
+
+              {/* Dots */}
+              <div style={{ display: "flex", gap: 6 }}>
+                {TRUSTED_CLIENTS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { goTo(i); resetAuto(); }}
+                    style={{
+                      width: i === current ? 24 : 8,
+                      height: 8,
+                      borderRadius: 4,
+                      border: "none",
+                      background: i === current ? "#0d6efd" : "#ccc",
+                      cursor: "pointer",
+                      transition: "all 0.3s",
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Arrows */}
+              <div style={{ display: "flex", gap: 10 }}>
+                <button onClick={() => { prev(); resetAuto(); }}>
+                  <FiChevronLeft />
+                </button>
+                <button onClick={() => { next(); resetAuto(); }}>
+                  <FiChevronRight />
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
-} 
+}
+
+export default TestimonialSlider;
 
 export function IndustriesSection() {
   const [showAll, setShowAll] = useState(false);
@@ -483,7 +403,6 @@ export function IndustriesSection() {
 }
 // ─── Why Choose Us ──────────────────────────────────────
 
-import { FiAward, FiShield, FiRefreshCw, FiUsers, FiZap, FiGlobe } from 'react-icons/fi';
 
 const WHY_ITEMS = [
   { icon: <FiAward />, title: 'Premium Quality Assured', desc: 'Every batch undergoes quality checks to meet ISI standards and customer specifications.' },
@@ -499,77 +418,84 @@ export function WhyChooseUs() {
     <section className="section-padded">
       <div className="container">
         <div className="row align-items-center g-5">
+
+          {/* Left Column */}
           <div className="col-lg-5">
-  <div className="section-eyebrow">Why Choose Us</div>
-  <div className="divider-accent" />
-  <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
-  <p className="section-lead">
-    With over 25+ years of experience in the paper board industry, we've built our reputation on quality, reliability, and exceptional customer service.
-  </p>
+            <div className="section-eyebrow">Why Choose Us</div>
+            <div className="divider-accent" />
+            <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
+            <p className="section-lead">
+              With over 25+ years of experience in the paper board industry, we've built our
+              reputation on quality, reliability, and exceptional customer service.
+            </p>
 
-  {/* Owner Photo Card */}
-  <div style={{
-    marginTop: '2rem',
-    position: 'relative',
-    display: 'inline-block',
-    width: '100%',
-  }}>
-    {/* Accent offset border */}
-    <div style={{
-      position: 'absolute', top: 10, left: 10, right: -10, bottom: -10,
-      border: '3px solid var(--accent)',
-      borderRadius: 16, zIndex: 0,
-    }} />
+            {/* Owner Photos — side by side */}
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1.25rem', width: '100%' }}>
 
-    <div style={{
-      position: 'relative', zIndex: 1,
-      borderRadius: 16, overflow: 'hidden',
-      boxShadow: '0 20px 60px rgba(26,58,46,0.18)',
-    }}>
-      <img
-        src={ownerImg}
-        alt="Shrikant D. Patil — Proprietor"
-        style={{
-          width: '100%',
-          maxHeight: 340,
-          objectFit: 'cover',
-          objectPosition: 'top',
-          display: 'block',
-        }}
-      />
+              {/* Owner 1 — Shrikant D. Patil */}
+              <div style={{ flex: 1, position: 'relative' }}>
+                <div style={{
+                  position: 'absolute', top: 10, left: 10, right: -10, bottom: -10,
+                  border: '3px solid var(--accent)', borderRadius: 16, zIndex: 0,
+                }} />
+                <div style={{ position: 'relative', zIndex: 1, borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 60px rgba(26,58,46,0.18)' }}>
+                  <img
+                    src={ownerImg}
+                    alt="Shrikant D. Patil — Founder & Proprietor"
+                    style={{ width: '100%', height: 300, objectFit: 'cover', objectPosition: 'top', display: 'block' }}
+                  />
+                  <div style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0,
+                    background: 'linear-gradient(to top, rgba(15,35,28,0.92) 0%, transparent 100%)',
+                    padding: '1.75rem 1.25rem 1rem',
+                  }}>
+                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>
+                      Shrikant D. Patil
+                    </div>
+                    <div style={{ fontSize: '0.62rem', color: 'var(--accent-light)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: 4 }}>
+                      Founder & Proprietor
+                    </div>
+                    <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem', lineHeight: 1.6, marginBottom: 0, fontStyle: 'italic' }}>
+                      "Consistent quality, fair pricing, and reliable delivery — every time."
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-      {/* Gradient overlay with name */}
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        background: 'linear-gradient(to top, rgba(15,35,28,0.92) 0%, transparent 100%)',
-        padding: '2rem 1.5rem 1.25rem',
-      }}>
-        <div style={{
-          fontFamily: 'var(--ff-heading)',
-          fontSize: '1.15rem', fontWeight: 700,
-          color: '#fff', lineHeight: 1.2,
-        }}>
-          Shrikant D. Patil
-        </div>
-        <div style={{
-          fontSize: '0.72rem', color: 'var(--accent-light)',
-          letterSpacing: '0.12em', textTransform: 'uppercase',
-          marginTop: 4,
-        }}>
-          Founder & Proprietor
-        </div>
-        <p style={{
-          fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)',
-          marginTop: '0.5rem', lineHeight: 1.6, marginBottom: 0,
-          fontStyle: 'italic',
-        }}>
-          "Consistent quality, fair pricing, and reliable delivery — every time."
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+              {/* Owner 2 — Omkar S. Patil */}
+              <div style={{ flex: 1, position: 'relative' }}>
+                <div style={{
+                  position: 'absolute', top: 10, left: 10, right: -10, bottom: -10,
+                  border: '3px solid var(--accent)', borderRadius: 16, zIndex: 0,
+                }} />
+                <div style={{ position: 'relative', zIndex: 1, borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 60px rgba(26,58,46,0.18)' }}>
+                  <img
+                    src={omkarImg}
+                    alt="Omkar S. Patil — Managing Director"
+                    style={{ width: '100%', height: 300, objectFit: 'cover', objectPosition: 'top', display: 'block' }}
+                  />
+                  <div style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0,
+                    background: 'linear-gradient(to top, rgba(15,35,28,0.92) 0%, transparent 100%)',
+                    padding: '1.75rem 1.25rem 1rem',
+                  }}>
+                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>
+                      Omkar S. Patil
+                    </div>
+                    <div style={{ fontSize: '0.62rem', color: 'var(--accent-light)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: 4 }}>
+                      Managing Director
+                    </div>
+                    <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem', lineHeight: 1.6, marginBottom: 0, fontStyle: 'italic' }}>
+                      "Building on our legacy with modern vision and stronger partnerships."
+                    </p>
+                  </div>
+                </div>
+              </div>
 
+            </div>
+          </div>
+
+          {/* Right Column — WHY items */}
           <div className="col-lg-7">
             <div className="row g-3">
               {WHY_ITEMS.map((item, i) => (
@@ -585,17 +511,15 @@ export function WhyChooseUs() {
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </section>
   );
 }
 
-// ─── CTA Section ─────────────────────────────────────────
 
-import { Link } from 'react-router-dom';
-import { FiArrowRight, FiPhone } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa';
+// ─── CTA Section ─────────────────────────────────────────
 
 const WA_NUMBER = '917397849730';
 const WA_MESSAGE = encodeURIComponent('Hello,\nI am interested in your paper board products.\nPlease share more details.');
