@@ -420,7 +420,7 @@ export function WhyChooseUs() {
         <div className="row align-items-center g-5">
 
           {/* Left Column */}
-          <div className="col-lg-10">
+          <div className="col-lg-5">
             <div className="section-eyebrow">Why Choose Us</div>
             <div className="divider-accent" />
             <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
@@ -443,7 +443,7 @@ export function WhyChooseUs() {
       <img
         src={ownerImg}
         alt="Shrikant D. Patil"
-        style={{ width: '100%', height: 550, objectFit: 'cover' }}
+        style={{ width: '100%', height: 280, objectFit: 'cover' }}
       />
       <div style={{ padding: '1.2rem', background: '#fff' }}>
         <h5 style={{ marginBottom: 4 }}>Shrikant D. Patil</h5>
@@ -466,7 +466,7 @@ export function WhyChooseUs() {
       <img
         src={omkarImg}
         alt="Omkar S. Patil"
-        style={{ width: '100%', height: 550, objectFit: 'cover' }}
+        style={{ width: '100%', height: 280, objectFit: 'cover' }}
       />
       <div style={{ padding: '1.2rem', background: '#fff' }}>
         <h5 style={{ marginBottom: 4 }}>Omkar S. Patil</h5>
@@ -483,7 +483,7 @@ export function WhyChooseUs() {
           </div> {/* ✅ FIX: THIS WAS MISSING */}
 
           {/* Right Column — WHY items */}
-          <div className="col-lg-10">
+          <div className="col-lg-7">
             <div className="row g-3">
               {WHY_ITEMS.map((item, i) => (
                 <div key={i} className={`col-md-6 fade-in delay-${Math.min(i + 1, 4)}`}>
