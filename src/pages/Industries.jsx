@@ -7,6 +7,9 @@ import filmCores from '../assets/images/film-cores.jpg';
 import edgeProtector from '../assets/images/edge-protector.webp';
 import c1sBoard from '../assets/images/c1s-board.jpg';
 import dtyTubes from '../assets/images/dty-tubes.jpg';
+import firecrackers from "../assets/images/firecrackers.webp";
+import patravali from "../assets/images/Patravali.jpg";
+import angleBoardImg from "../assets/images/angle_board.jpeg";
 
 const ALL_PRODUCTS = [
   {
@@ -32,7 +35,7 @@ const ALL_PRODUCTS = [
   },
   {
     image: edgeProtector,
-    name: 'Edge Protector / Angel Board',
+    name: 'Edge Protector / Angle Board',
     category: 'Paper & Paper Boards',
     desc: 'L-shaped edge protectors made from solid fibre or honeycomb board, protecting goods from damage during storage, handling and transport. Custom lengths available.',
     uses: ['Cargo protection', 'Storage safety', 'Transport packaging'],
@@ -50,6 +53,30 @@ const ALL_PRODUCTS = [
     category: 'Paper & Paper Boards',
     desc: 'Draw Textured Yarn (DTY) paper tubes engineered for high-speed winding in textile manufacturing. Superior strength, smooth inner surface, and precise dimensions.',
     uses: ['DTY yarn winding', 'High-speed winding', 'Textile manufacturing'],
+  },
+
+  // ✅ NEW PRODUCTS
+
+  {
+    image: firecrackers,
+    name: 'Firecrackers Packaging Board',
+    category: 'Specialty Boards',
+    desc: 'High-quality kraft and duplex boards specially designed for firecracker packaging. Provides excellent strength, durability, and safety for handling explosive materials with secure packaging solutions.',
+    uses: ['Firecracker boxes', 'Explosive-safe packaging', 'Festival packaging'],
+  },
+  {
+    image: angleBoardImg,
+    name: 'Angle Board',
+    category: 'Paper & Paper Boards',
+    desc: 'Strong and durable angle boards used for edge protection in packaging and logistics. Ensures product safety during transportation and stacking, reducing damage risks significantly.',
+    uses: ['Edge protection', 'Pallet stabilization', 'Logistics safety'],
+  },
+  {
+    image: patravali,
+    name: 'Eco-Friendly Plain Paper Plates (Patravali)',
+    category: 'Eco-Friendly Products',
+    desc: 'Biodegradable and eco-friendly plain paper plates (Patravali) made from natural materials. Ideal for serving food at events, functions, and daily use while promoting sustainable living.',
+    uses: ['Food serving', 'Events & functions', 'Eco-friendly dining'],
   },
 ];
 

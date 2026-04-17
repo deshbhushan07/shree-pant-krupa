@@ -262,15 +262,17 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .nav-cta {
-  background: var(--primary);
+  background: var(--primary) !important;
   color: var(--white) !important;
   padding: 0.5rem 1.25rem !important;
   border-radius: var(--radius);
   margin-left: 0.5rem;
 }
 
-.nav-cta::after { display: none; }
-.nav-cta:hover { background: var(--accent); color: var(--white) !important; }
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+.nav-cta.active { background: var(--primary) !important; color: var(--white) !important; }
+.nav-cta.active::after { display: none !important; transform: none !important; }
 
 /* ============ HERO ============ */
 .hero-section {

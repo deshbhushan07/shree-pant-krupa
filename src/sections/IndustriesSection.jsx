@@ -8,6 +8,9 @@ import edgeProtector from '../assets/images/edge-protector.webp';
 import c1sBoard from '../assets/images/c1s-board.jpg';
 import dtyTubes from '../assets/images/dty-tubes.jpg';
 import ownerImg from '../assets/images/big_owner.jpeg';
+import firecrackers from "../assets/images/firecrackers.webp";
+import patravali from "../assets/images/Patravali.jpg";
+import angleBoardImg from "../assets/images/angle_board.jpeg";
 
 const INDUSTRIES = [
   { icon: <FiBox />, title: 'Packaging Industry', desc: 'Supplying robust paper board for rigid and flexible packaging solutions across India.' },
@@ -54,6 +57,27 @@ const PRODUCT_SHOWCASE = [
     name: 'DTY Tubes',
     category: 'Paper & Paper Boards',
     desc: 'Draw Textured Yarn (DTY) paper tubes engineered for high-speed winding in textile manufacturing. Superior strength, smooth inner surface, and precise dimensions.',
+  },
+
+  // ✅ NEW PRODUCTS
+
+  {
+    image: firecrackers,
+    name: 'Firecrackers Packaging Board',
+    category: 'Specialty Boards',
+    desc: 'High-quality kraft and duplex boards specially designed for firecracker packaging. Provides excellent strength, durability, and safety for handling explosive materials with secure packaging solutions.',
+  },
+  {
+    image: angleBoardImg,
+    name: 'Angle Board',
+    category: 'Paper & Paper Boards',
+    desc: 'Strong and durable angle boards used for edge protection in packaging and logistics. Ensures product safety during transportation and stacking, reducing damage risks significantly.',
+  },
+  {
+    image: patravali,
+    name: 'Eco-Friendly Plain Paper Plates (Patravali)',
+    category: 'Eco-Friendly Products',
+    desc: 'Biodegradable and eco-friendly plain paper plates (Patravali) made from natural materials. Ideal for serving food at events, functions, and daily use while promoting sustainable living.',
   },
 ];
 
