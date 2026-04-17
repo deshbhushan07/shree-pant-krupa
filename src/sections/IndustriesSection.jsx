@@ -420,7 +420,7 @@ export function WhyChooseUs() {
         <div className="row align-items-center g-5">
 
           {/* Left Column */}
-          <div className="col-lg-5">
+          <div className="col-lg-10">
             <div className="section-eyebrow">Why Choose Us</div>
             <div className="divider-accent" />
             <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
@@ -429,74 +429,61 @@ export function WhyChooseUs() {
               reputation on quality, reliability, and exceptional customer service.
             </p>
 
-            {/* Owner Photos — side by side */}
-            <div style={{ marginTop: '2rem', display: 'flex', gap: '1.25rem', width: '100%' }}>
+            {/* Owners Row */}
+<div className="row mt-4">
 
-              {/* Owner 1 — Shrikant D. Patil */}
-              <div style={{ flex: 1, position: 'relative' }}>
-                <div style={{
-                  position: 'absolute', top: 10, left: 10, right: -10, bottom: -10,
-                  border: '3px solid var(--accent)', borderRadius: 16, zIndex: 0,
-                }} />
-                <div style={{ position: 'relative', zIndex: 1, borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 60px rgba(26,58,46,0.18)' }}>
-                  <img
-                    src={ownerImg}
-                    alt="Shrikant D. Patil — Founder & Proprietor"
-                    style={{ width: '100%', height: 300, objectFit: 'cover', objectPosition: 'top', display: 'block' }}
-                  />
-                  <div style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0,
-                    background: 'linear-gradient(to top, rgba(15,35,28,0.92) 0%, transparent 100%)',
-                    padding: '1.75rem 1.25rem 1rem',
-                  }}>
-                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>
-                      Shrikant D. Patil
-                    </div>
-                    <div style={{ fontSize: '0.62rem', color: 'var(--accent-light)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: 4 }}>
-                      Founder & Proprietor
-                    </div>
-                    <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem', lineHeight: 1.6, marginBottom: 0, fontStyle: 'italic' }}>
-                      "Consistent quality, fair pricing, and reliable delivery — every time."
-                    </p>
-                  </div>
-                </div>
-              </div>
+  {/* Owner 1 */}
+  <div className="col-md-6 mb-4">
+    <div style={{
+      borderRadius: 16,
+      overflow: 'hidden',
+      boxShadow: '0 20px 60px rgba(26,58,46,0.18)',
+      height: '100%'
+    }}>
+      <img
+        src={ownerImg}
+        alt="Shrikant D. Patil"
+        style={{ width: '100%', height: 550, objectFit: 'cover' }}
+      />
+      <div style={{ padding: '1.2rem', background: '#fff' }}>
+        <h5 style={{ marginBottom: 4 }}>Shrikant D. Patil</h5>
+        <div style={{ fontSize: 12, color: '#777' }}>Founder & Proprietor</div>
+        <p style={{ marginTop: 8, fontStyle: 'italic' }}>
+          "Consistent quality, fair pricing, and reliable delivery — every time."
+        </p>
+      </div>
+    </div>
+  </div>
 
-              {/* Owner 2 — Omkar S. Patil */}
-              <div style={{ flex: 1, position: 'relative' }}>
-                <div style={{
-                  position: 'absolute', top: 10, left: 10, right: -10, bottom: -10,
-                  border: '3px solid var(--accent)', borderRadius: 16, zIndex: 0,
-                }} />
-                <div style={{ position: 'relative', zIndex: 1, borderRadius: 16, overflow: 'hidden', boxShadow: '0 20px 60px rgba(26,58,46,0.18)' }}>
-                  <img
-                    src={omkarImg}
-                    alt="Omkar S. Patil — Managing Director"
-                    style={{ width: '100%', height: 300, objectFit: 'cover', objectPosition: 'top', display: 'block' }}
-                  />
-                  <div style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0,
-                    background: 'linear-gradient(to top, rgba(15,35,28,0.92) 0%, transparent 100%)',
-                    padding: '1.75rem 1.25rem 1rem',
-                  }}>
-                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '0.95rem', fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>
-                      Omkar S. Patil
-                    </div>
-                    <div style={{ fontSize: '0.62rem', color: 'var(--accent-light)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: 4 }}>
-                      Managing Director
-                    </div>
-                    <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)', marginTop: '0.5rem', lineHeight: 1.6, marginBottom: 0, fontStyle: 'italic' }}>
-                      "Building on our legacy with modern vision and stronger partnerships."
-                    </p>
-                  </div>
-                </div>
-              </div>
+  {/* Owner 2 */}
+  <div className="col-md-6 mb-4">
+    <div style={{
+      borderRadius: 16,
+      overflow: 'hidden',
+      boxShadow: '0 20px 60px rgba(26,58,46,0.18)',
+      height: '100%'
+    }}>
+      <img
+        src={omkarImg}
+        alt="Omkar S. Patil"
+        style={{ width: '100%', height: 550, objectFit: 'cover' }}
+      />
+      <div style={{ padding: '1.2rem', background: '#fff' }}>
+        <h5 style={{ marginBottom: 4 }}>Omkar S. Patil</h5>
+        <div style={{ fontSize: 12, color: '#777' }}>Managing Director</div>
+        <p style={{ marginTop: 8, fontStyle: 'italic' }}>
+          "Building on our legacy with modern vision and stronger partnerships."
+        </p>
+      </div>
+    </div>
+  </div>
 
-            </div>
-          </div>
+</div>
+
+          </div> {/* ✅ FIX: THIS WAS MISSING */}
 
           {/* Right Column — WHY items */}
-          <div className="col-lg-7">
+          <div className="col-lg-10">
             <div className="row g-3">
               {WHY_ITEMS.map((item, i) => (
                 <div key={i} className={`col-md-6 fade-in delay-${Math.min(i + 1, 4)}`}>
