@@ -415,96 +415,263 @@ const WHY_ITEMS = [
 
 export function WhyChooseUs() {
   return (
-    <section className="section-padded">
+    <section className="section-padded" style={{ background: 'linear-gradient(145deg, #fefcf6 0%, #fff9ef 100%)' }}>
       <div className="container">
-        <div className="row align-items-center g-5">
+        {/* Header Section */}
+        <div className="text-center mb-5 pb-3">
+          <div className="section-eyebrow" style={{ 
+            color: 'var(--accent, #c69c2d)', 
+            fontWeight: 600, 
+            letterSpacing: '0.15em', 
+            textTransform: 'uppercase', 
+            fontSize: '0.75rem',
+            marginBottom: '0.75rem'
+          }}>
+            From the Founders
+          </div>
+          <div className="divider-accent center" style={{ 
+            width: '80px', 
+            height: '3px', 
+            background: 'linear-gradient(90deg, var(--accent, #c69c2d), #e8c97a)', 
+            margin: '1rem auto', 
+            borderRadius: '3px' 
+          }} />
+          <h2 className="section-title" style={{ 
+            fontSize: '2.5rem', 
+            fontWeight: 700, 
+            color: 'var(--primary-dark, #1a3a2a)',
+            letterSpacing: '-0.02em',
+            marginTop: '0.5rem'
+          }}>
+            A Message from Our Founders
+          </h2>
+        </div>
 
-          {/* Left Column */}
-          <div className="col-lg-5">
-            <div className="section-eyebrow">Why Choose Us</div>
-            <div className="divider-accent" />
-            <h2 className="section-title mb-3">The Pant Krupa Advantage</h2>
-            <p className="section-lead">
-              With over 25+ years of experience in the paper board industry, we've built our
-              reputation on quality, reliability, and exceptional customer service.
-            </p>
-
-            {/* Owners Row */}
-<div className="row mt-4">
-
-  {/* Owner 1 */}
-  <div className="col-md-6 mb-4">
-    <div style={{
-      borderRadius: 16,
-      overflow: 'hidden',
-      boxShadow: '0 20px 60px rgba(26,58,46,0.18)',
-      height: '100%'
-    }}>
-      <img
-        src={ownerImg}
-        alt="Shrikant D. Patil"
-        style={{ width: '100%', height: 280, objectFit: 'cover' }}
-      />
-      <div style={{ padding: '1.2rem', background: '#fff' }}>
-        <h5 style={{ marginBottom: 4 }}>Shrikant D. Patil</h5>
-        <div style={{ fontSize: 12, color: '#777' }}>Founder & Proprietor</div>
-        <p style={{ marginTop: 8, fontStyle: 'italic' }}>
-          "Consistent quality, fair pricing, and reliable delivery — every time."
-        </p>
-      </div>
-    </div>
-  </div>
-
-  {/* Owner 2 */}
-  <div className="col-md-6 mb-4">
-    <div style={{
-      borderRadius: 16,
-      overflow: 'hidden',
-      boxShadow: '0 20px 60px rgba(26,58,46,0.18)',
-      height: '100%'
-    }}>
-      <img
-        src={omkarImg}
-        alt="Omkar S. Patil"
-        style={{ width: '100%', height: 280, objectFit: 'cover' }}
-      />
-      <div style={{ padding: '1.2rem', background: '#fff' }}>
-        <h5 style={{ marginBottom: 4 }}>Omkar S. Patil</h5>
-        <div style={{ fontSize: 12, color: '#777' }}>Managing Director</div>
-        <p style={{ marginTop: 8, fontStyle: 'italic' }}>
-          "Building on our legacy with modern vision and stronger partnerships."
-        </p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-          </div> {/* ✅ FIX: THIS WAS MISSING */}
-
-          {/* Right Column — WHY items */}
-          <div className="col-lg-7">
-            <div className="row g-3">
-              {WHY_ITEMS.map((item, i) => (
-                <div key={i} className={`col-md-6 fade-in delay-${Math.min(i + 1, 4)}`}>
-                  <div className="why-item">
-                    <div className="why-icon">{item.icon}</div>
-                    <div>
-                      <div className="why-title">{item.title}</div>
-                      <div className="why-desc">{item.desc}</div>
-                    </div>
+        <div className="row g-5 justify-content-center">
+          {/* Founder 1 - Shrikant D. Patil */}
+          <div className="col-lg-6">
+            <div style={{
+              background: '#ffffff',
+              borderRadius: '32px',
+              border: '1px solid rgba(0,0,0,0.06)',
+              overflow: 'hidden',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              boxShadow: '0 25px 45px -12px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.02)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            }}>
+              {/* LARGE PHOTO FRAME - Full width image area */}
+              <div style={{
+                background: 'linear-gradient(135deg, #1e3a2f 0%, #0f2b20 100%)',
+                padding: '2.5rem 2rem 1.5rem 2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1rem',
+              }}>
+                {/* Big Photo Frame */}
+                <div style={{
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '50%',
+                  border: '4px solid rgba(255,215,140,0.8)',
+                  overflow: 'hidden',
+                  background: '#f5efe2',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 12px 28px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.2)',
+                }}>
+                  {/* Founder 1 Photo - replace with actual image */}
+                  <img
+                    src={new URL('../assets/images/big_owner.jpeg', import.meta.url).href}
+                    alt="Shrikant D. Patil"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement.style.background = '#d4c5a0';
+                      e.currentTarget.parentElement.innerHTML = '<span style="font-size: 4rem; color: #8b7355;">👤</span>';
+                    }}
+                  />
+                </div>
+                
+                {/* Small Caption inside the same frame */}
+                <div style={{ textAlign: 'center', marginTop: '0.25rem' }}>
+                  <div style={{ 
+                    fontFamily: 'var(--ff-heading, "Inter", system-ui)', 
+                    fontSize: '1.4rem', 
+                    fontWeight: 700, 
+                    color: '#fff',
+                    letterSpacing: '-0.01em'
+                  }}>
+                    Shrikant D. Patil
+                  </div>
+                  <div style={{ 
+                    fontSize: '0.7rem', 
+                    color: '#e9d6a7', 
+                    letterSpacing: '0.1em', 
+                    textTransform: 'uppercase', 
+                    marginTop: '0.35rem',
+                    fontWeight: 500
+                  }}>
+                    Proprietor & Founder
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Quote Content */}
+              <div style={{ padding: '2rem 2rem 2.2rem 2rem', flex: 1, position: 'relative', background: '#fff' }}>
+                <div style={{
+                  fontSize: '5rem',
+                  color: 'var(--accent, #c69c2d)',
+                  opacity: 0.1,
+                  fontFamily: 'Georgia, serif',
+                  lineHeight: 0.8,
+                  position: 'absolute',
+                  top: '1.2rem',
+                  left: '1.8rem',
+                  pointerEvents: 'none',
+                }}>"</div>
+                <p style={{
+                  fontSize: '1rem',
+                  color: '#2c3e2f',
+                  lineHeight: 1.8,
+                  fontWeight: 450,
+                  fontStyle: 'italic',
+                  margin: 0,
+                  position: 'relative',
+                  zIndex: 1,
+                  paddingLeft: '0.5rem',
+                }}>
+                  We started Shri Pant Krupa Paper Board with a single goal: to supply the Indian paper board
+                  industry with materials they can depend on. Quality has never been a compromise for us — it's
+                  the foundation of every product we manufacture.
+                </p>
+                <div style={{ marginTop: '1.8rem', width: '60px', height: '2px', background: 'linear-gradient(90deg, var(--accent, #c69c2d), transparent)' }} />
+              </div>
             </div>
           </div>
 
+          {/* Founder 2 - Omkar S. Patil */}
+          <div className="col-lg-6">
+            <div style={{
+              background: '#ffffff',
+              borderRadius: '32px',
+              border: '1px solid rgba(0,0,0,0.06)',
+              overflow: 'hidden',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              boxShadow: '0 25px 45px -12px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.02)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            }}>
+              {/* LARGE PHOTO FRAME - Full width image area */}
+              <div style={{
+                background: 'linear-gradient(135deg, #8b5a2b 0%, #a06e2e 100%)',
+                padding: '2.5rem 2rem 1.5rem 2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1rem',
+              }}>
+                {/* Big Photo Frame */}
+                <div style={{
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '50%',
+                  border: '4px solid rgba(255,245,200,0.9)',
+                  overflow: 'hidden',
+                  background: '#fff2df',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 12px 28px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.3)',
+                }}>
+                  {/* Founder 2 Photo - replace with actual image */}
+                  <img
+                    src={new URL('../assets/images/omkar_owner.png', import.meta.url).href}
+                    alt="Omkar S. Patil"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement.style.background = '#e6d5b8';
+                      e.currentTarget.parentElement.innerHTML = '<span style="font-size: 4rem; color: #8b6914;">👤</span>';
+                    }}
+                  />
+                </div>
+                
+                {/* Small Caption inside the same frame */}
+                <div style={{ textAlign: 'center', marginTop: '0.25rem' }}>
+                  <div style={{ 
+                    fontFamily: 'var(--ff-heading, "Inter", system-ui)', 
+                    fontSize: '1.4rem', 
+                    fontWeight: 700, 
+                    color: '#fff',
+                    letterSpacing: '-0.01em'
+                  }}>
+                    Omkar S. Patil
+                  </div>
+                  <div style={{ 
+                    fontSize: '0.7rem', 
+                    color: '#fff3df', 
+                    letterSpacing: '0.1em', 
+                    textTransform: 'uppercase', 
+                    marginTop: '0.35rem',
+                    fontWeight: 500
+                  }}>
+                    Co-Founder & Director
+                  </div>
+                </div>
+              </div>
+
+              {/* Quote Content */}
+              <div style={{ padding: '2rem 2rem 2.2rem 2rem', flex: 1, position: 'relative', background: '#fff' }}>
+                <div style={{
+                  fontSize: '5rem',
+                  color: 'var(--accent, #c69c2d)',
+                  opacity: 0.1,
+                  fontFamily: 'Georgia, serif',
+                  lineHeight: 0.8,
+                  position: 'absolute',
+                  top: '1.2rem',
+                  left: '1.8rem',
+                  pointerEvents: 'none',
+                }}>"</div>
+                <p style={{
+                  fontSize: '1rem',
+                  color: '#2c3e2f',
+                  lineHeight: 1.8,
+                  fontWeight: 450,
+                  fontStyle: 'italic',
+                  margin: 0,
+                  position: 'relative',
+                  zIndex: 1,
+                  paddingLeft: '0.5rem',
+                }}>
+                  My focus has always been on building lasting relationships with our clients and partners.
+                  We believe that great products alone are not enough — it's the trust, transparency, and
+                  dedication to service that truly sets us apart.
+                </p>
+                <div style={{ marginTop: '1.8rem', width: '60px', height: '2px', background: 'linear-gradient(90deg, var(--accent, #c69c2d), transparent)' }} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
 
 // ─── CTA Section ─────────────────────────────────────────
 
