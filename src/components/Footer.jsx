@@ -53,7 +53,7 @@ export default function Footer() {
 
             {/* ✅ FIXED WhatsApp Button */}
             <a
-              href="https://wa.me/917397849730"
+              href="https://wa.me/917028082100"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -140,10 +140,10 @@ export default function Footer() {
               </div>
             </a>
 
-            <a href="tel:+917397849730" style={{ textDecoration: 'none' }}>
+            <a href="tel:+917028082100" style={{ textDecoration: 'none' }}>
               <div className="footer-contact-item">
                 <FiPhone className="footer-contact-icon" />
-                <span>+91 73978 49730</span>
+                <span>+91 70280 82100</span>
               </div>
             </a>
 
@@ -156,7 +156,7 @@ export default function Footer() {
 
             {/* ✅ FIXED WhatsApp Contact */}
             <a
-              href="https://wa.me/917397849730"
+              href="https://wa.me/917028082100"
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: 'none' }}

@@ -630,7 +630,7 @@ export function WhyChooseUs() {
                     marginTop: '0.35rem',
                     fontWeight: 500
                   }}>
-                    Co-Founder & Director
+                    Co-Founder & Managing Director
                   </div>
                 </div>
               </div>
@@ -675,7 +675,7 @@ export function WhyChooseUs() {
 
 // ─── CTA Section ─────────────────────────────────────────
 
-const WA_NUMBER = '917397849730';
+const WA_NUMBER = '917028082100';
 const WA_MESSAGE = encodeURIComponent('Hello,\nI am interested in your paper board products.\nPlease share more details.');
 
 export function CTA() {
@@ -711,7 +711,7 @@ export function CTA() {
               >
                 <FaWhatsapp size={18} /> WhatsApp Us
               </a>
-              <a href="tel:+919876543210" className="btn-outline-custom" style={{ borderColor: 'rgba(255,255,255,0.4)', color: '#fff' }}>
+              <a href="tel:+917028082100" className="btn-outline-custom" style={{ borderColor: 'rgba(255,255,255,0.4)', color: '#fff' }}>
                 <FiPhone size={16} /> Call Now
               </a>
             </div>
