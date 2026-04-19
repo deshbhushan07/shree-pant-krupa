@@ -5,6 +5,76 @@ import { FiTarget, FiEye, FiCheckCircle, FiArrowRight, FiMapPin } from 'react-ic
 import { FaIndustry, FaLeaf, FaHandshake } from 'react-icons/fa';
 import { CTA } from '../sections/IndustriesSection';
 import { useScrollAnimation } from '../hooks/useAnimations';
+import ownerImg from '../assets/images/big_owner.jpeg';
+import omkarImg from "../assets/images/omkar_owner.png";
+import spLogo from '../assets/images/sp_logo.png'; // Import the logo for 2nd & 3rd rows
+
+// TeamCard component with proper image fitting
+const TeamCard = ({ member }) => {
+  return (
+    <div style={{
+      background: '#fff',
+      borderRadius: 'var(--radius-md)',
+      border: '1px solid var(--border)',
+      overflow: 'hidden',
+      transition: 'var(--transition)',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    }}
+    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)'; }}
+    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none'; }}
+    >
+      <div style={{ 
+        position: 'relative',
+        paddingTop: '75%', 
+        backgroundColor: '#f5f0e8',
+        overflow: 'hidden'
+      }}>
+        <img 
+          src={member.photo} 
+          alt={member.name}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center 20%',  // Ensures the image fits perfectly without distortion
+          }}
+        />
+        <div style={{
+          position: 'absolute',
+          top: '1rem',
+          right: '1rem',
+          background: member.badgeColor || 'var(--primary)',
+          color: '#fff',
+          fontSize: '0.65rem',
+          fontWeight: 600,
+          padding: '0.2rem 0.6rem',
+          borderRadius: 20,
+          letterSpacing: '0.05em',
+        }}>
+          {member.badge}
+        </div>
+      </div>
+      <div style={{ padding: '1.25rem', flex: 1 }}>
+        <div style={{ fontFamily: 'var(--ff-heading)', fontWeight: 700, fontSize: '1.1rem', color: 'var(--primary-dark)', marginBottom: '0.25rem' }}>
+          {member.name}
+        </div>
+        <div style={{ fontSize: '0.8rem', color: 'var(--accent)', fontWeight: 500, marginBottom: '0.5rem' }}>
+          {member.role}
+        </div>
+        {member.note && (
+          <div style={{ fontSize: '0.7rem', color: 'var(--text-mid)', marginTop: '0.25rem' }}>
+            {member.note}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default function About() {
   useScrollAnimation();
@@ -34,7 +104,7 @@ export default function About() {
               <h2 className="section-title mb-3">Who We Are</h2>
               <p style={{ color: 'var(--text-mid)', lineHeight: 1.9, marginBottom: '1.25rem' }}>
                 Shri Pant Krupa Paper Board is a leading paper board manufacturer and trader based in Kolhapur, Maharashtra. 
-                Founded by <strong>Omkar Shrikant Patil</strong>, we have built a reputation for delivering consistent quality 
+                Founded by <strong>Shrikant D. Patil</strong>, we have built a reputation for delivering consistent quality 
                 paper board products to clients across India.
               </p>
               <p style={{ color: 'var(--text-mid)', lineHeight: 1.9, marginBottom: '1.75rem' }}>
@@ -152,92 +222,96 @@ export default function About() {
         </div>
       </section>
 
-      {/* Capabilities */}
       {/* Team & Recognition */}
       <section className="section-padded section-bg-cream">
         <div className="container">
 
-          {/* Team */}
-          <div className="row g-4 mb-5">
+          {/* Team Heading */}
+          <div className="text-center mb-5">
+            <div className="section-eyebrow">Our People</div>
+            <div className="divider-accent center" />
+            <h2 className="section-title">Our Proud Team</h2>
+            <p className="section-lead mx-auto mt-3">
+              The dedicated professionals behind Shri Pant Krupa Paper Board's consistent quality and service.
+            </p>
+          </div>
+
+          {/* Row 1 — Leadership (2 centered) - using original photos */}
+          <div className="row g-4 justify-content-center mb-4">
             {[
               {
                 name: 'Shrikant D. Patil',
-                role: 'Proprietor & Founder',
-                photo: new URL('../assets/images/team1.jpg', import.meta.url).href,
-                bio: 'With decades of experience in the paper board industry, Shrikant leads the company with a focus on quality and customer satisfaction.',
+                role: 'Director',
+                photo: ownerImg,
+                badge: 'Leadership',
+                badgeColor: 'var(--primary)',
               },
               {
-                name: 'Team Member Name',
-                role: 'Production Manager',
-                photo: new URL('../assets/images/team2.jpg', import.meta.url).href,
-                bio: 'Oversees manufacturing operations ensuring every batch meets our strict quality standards.',
-              },
-              {
-                name: 'Team Member Name',
-                role: 'Sales & Marketing',
-                photo: new URL('../assets/images/team3.jpg', import.meta.url).href,
-                bio: 'Manages client relationships and ensures timely fulfillment of orders across India.',
-              },
-              {
-                name: 'Team Member Name',
-                role: 'Quality Control',
-                photo: new URL('../assets/images/team4.jpg', import.meta.url).href,
-                bio: 'Ensures every product batch passes strict quality checks before dispatch to clients.',
+                name: 'Omkar S. Patil',
+                role: 'Managing Director',
+                photo: omkarImg,
+                badge: 'Leadership',
+                badgeColor: 'var(--primary)',
               },
             ].map((member, i) => (
-              <div key={i} className="col-lg-3 col-md-6">
-                <div style={{
-                  background: '#fff',
-                  borderRadius: 'var(--radius-lg)',
-                  overflow: 'hidden',
-                  border: '1px solid var(--border)',
-                  transition: 'var(--transition)',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
-                >
-                  {/* Photo — full width tall image */}
-                  <div style={{
-                    width: '100%',
-                    height: 280,
-                    overflow: 'hidden',
-                    background: 'var(--cream)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <img
-                      src={member.photo}
-                      alt={member.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
-                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                      onError={e => {
-                        e.currentTarget.style.display = 'none';
-                        e.currentTarget.parentElement.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;opacity:0.2">👤</div>';
-                      }}
-                    />
-                  </div>
+              <div key={i} className="col-lg-3 col-md-5 col-sm-6">
+                <TeamCard member={member} />
+              </div>
+            ))}
+          </div>
 
-                  {/* Info */}
-                  <div style={{ padding: '1.25rem 1.5rem 1.5rem' }}>
-                    <div style={{
-                      display: 'inline-block',
-                      background: 'rgba(200,150,62,0.1)',
-                      color: 'var(--accent)',
-                      fontSize: '0.68rem', fontWeight: 700,
-                      letterSpacing: '0.12em', textTransform: 'uppercase',
-                      padding: '0.2rem 0.625rem', borderRadius: 100,
-                      marginBottom: '0.5rem',
-                    }}>
-                      {member.role}
-                    </div>
-                    <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary-dark)', marginBottom: '0.5rem' }}>
-                      {member.name}
-                    </div>
-                    <p style={{ fontSize: '0.82rem', color: 'var(--text-mid)', lineHeight: 1.7, margin: 0 }}>
-                      {member.bio}
-                    </p>
-                  </div>
-                </div>
+          {/* Row 2 — Core Team (3 centered) - using sp_logo.png */}
+          <div className="row g-4 justify-content-center mb-4">
+            {[
+              {
+                name: 'Omkar Chavan',
+                role: 'Accountant',
+                photo: spLogo,
+                badge: 'Core Team',
+                badgeColor: 'var(--accent-dark)',
+              },
+              {
+                name: 'Siddhesh Mane',
+                role: 'Billing Executive',
+                photo: spLogo,
+                badge: 'Core Team',
+                badgeColor: 'var(--accent-dark)',
+              },
+              {
+                name: 'Kunal Chavan',
+                role: 'Billing Executive',
+                photo: spLogo,
+                badge: 'Core Team',
+                badgeColor: 'var(--accent-dark)',
+              },
+            ].map((member, i) => (
+              <div key={i} className="col-lg-3 col-md-4 col-sm-6">
+                <TeamCard member={member} />
+              </div>
+            ))}
+          </div>
+
+          {/* Row 3 — Senior & Specialized (2 centered) - using sp_logo.png */}
+          <div className="row g-4 justify-content-center mb-5">
+            {[
+              {
+                name: 'Arun More',
+                role: 'General Manager',
+                note: '40+ years of experience',
+                photo: spLogo,
+                badge: 'Senior',
+                badgeColor: '#2d5c4a',
+              },
+              {
+                name: 'Bhauso Khot',
+                role: 'Waste Management Specialist',
+                photo: spLogo,
+                badge: 'Specialist',
+                badgeColor: '#2d5c4a',
+              },
+            ].map((member, i) => (
+              <div key={i} className="col-lg-3 col-md-5 col-sm-6">
+                <TeamCard member={member} />
               </div>
             ))}
           </div>
@@ -298,7 +372,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Capabilities */}
+      {/* Manufacturing Capabilities */}
       <section className="section-padded section-bg-cream">
         <div className="container">
           <div className="text-center mb-5">

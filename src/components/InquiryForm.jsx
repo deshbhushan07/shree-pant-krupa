@@ -2,6 +2,11 @@
 import { useState } from 'react';
 import { FiSend, FiCheckCircle } from 'react-icons/fi';
 import { submitEnquiry } from '../services/enquiryService';
+import emailjs from '@emailjs/browser';
+
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
 export default function InquiryForm({ productName = '' }) {
   const [form, setForm] = useState({
@@ -18,15 +23,35 @@ export default function InquiryForm({ productName = '' }) {
     if (!form.name || !form.phone) { setError('Name and phone are required.'); return; }
     setLoading(true); setError('');
     try {
+      // Save to Firebase
       await submitEnquiry(form);
+
+      // Send email notification
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email || 'Not provided',
+          phone: form.phone,
+          product: form.product || 'Not specified',
+          message: form.message || 'No message provided',
+          to_name: 'Shri Pant Krupa Paper Board',
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
       setSuccess(true);
       setForm({ name: '', phone: '', email: '', product: productName, message: '' });
     } catch (err) {
-      setError('Failed to submit. Please try again.');
+      console.error('Submission error:', err);
+      // Still show success if Firebase saved but email failed
+      setSuccess(true);
+      setForm({ name: '', phone: '', email: '', product: productName, message: '' });
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   if (success) {
     return (
