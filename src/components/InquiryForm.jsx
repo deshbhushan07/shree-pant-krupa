@@ -4,9 +4,9 @@ import { FiSend, FiCheckCircle } from 'react-icons/fi';
 import { submitEnquiry } from '../services/enquiryService';
 import emailjs from '@emailjs/browser';
 
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID = 'service_t3nbun9';
+const EMAILJS_TEMPLATE_ID = 'template_gcbr5j5';
+const EMAILJS_PUBLIC_KEY = 'etrlrzpspSBhwIGSg';
 
 export default function InquiryForm({ productName = '' }) {
   const [form, setForm] = useState({
@@ -28,18 +28,18 @@ export default function InquiryForm({ productName = '' }) {
 
       // Send email notification
       await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: form.name,
-          from_email: form.email || 'Not provided',
-          phone: form.phone,
-          product: form.product || 'Not specified',
-          message: form.message || 'No message provided',
-          to_name: 'Shri Pant Krupa Paper Board',
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+  EMAILJS_SERVICE_ID,
+  EMAILJS_TEMPLATE_ID,
+  {
+    from_name: form.name,
+    from_email: form.email,
+    phone: form.phone,
+    product: form.product || 'Not specified',
+    message: form.message || 'No message provided',
+    to_name: 'Shri Pant Krupa Paper Board',
+  },
+  EMAILJS_PUBLIC_KEY
+);
 
       setSuccess(true);
       setForm({ name: '', phone: '', email: '', product: productName, message: '' });
