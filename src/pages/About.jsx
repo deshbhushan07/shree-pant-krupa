@@ -76,6 +76,66 @@ const TeamCard = ({ member }) => {
   );
 };
 
+function StaffCard({ member }) {
+  return (
+    <div style={{
+      background: 'var(--cream)',
+      borderRadius: 'var(--radius-md)',
+      padding: '1.5rem',
+      height: '100%',
+      border: '1px solid var(--border)',
+      transition: 'var(--transition)',
+    }}
+      onMouseEnter={e => { e.currentTarget.style.boxShadow = 'var(--shadow-md)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+      onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
+    >
+      {/* Avatar initials */}
+      <div style={{
+        width: 56, height: 56,
+        borderRadius: '50%',
+        background: 'var(--primary)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: '#fff', fontFamily: 'var(--ff-heading)',
+        fontSize: '1.1rem', fontWeight: 700,
+        marginBottom: '1rem',
+      }}>
+        {member.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+      </div>
+
+      {/* Name */}
+      <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1rem', fontWeight: 700, color: 'var(--primary-dark)', marginBottom: '0.2rem' }}>
+        {member.name}
+      </div>
+
+      {/* Role */}
+      <div style={{ fontSize: '0.75rem', color: 'var(--accent)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
+        {member.role}
+      </div>
+
+      <div style={{ height: 1, background: 'var(--border)', marginBottom: '0.75rem' }} />
+
+      {/* Phone */}
+      <div style={{ fontSize: '0.82rem', color: 'var(--text-mid)', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <span style={{ color: 'var(--accent)' }}>📞</span>
+        <a href={`tel:${member.phone}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+          {member.phone}
+        </a>
+      </div>
+
+      {/* Experience */}
+      <div style={{ fontSize: '0.82rem', color: 'var(--text-mid)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <span style={{ color: 'var(--accent)' }}>⏱</span>
+        {member.experience} experience
+      </div>
+
+      {/* Description */}
+      <p style={{ fontSize: '0.8rem', color: 'var(--text-light)', lineHeight: 1.7, margin: 0 }}>
+        {member.desc}
+      </p>
+    </div>
+  );
+}
+
 export default function About() {
   useScrollAnimation();
 
@@ -261,59 +321,80 @@ export default function About() {
           </div>
 
           {/* Row 2 — Core Team (3 centered) - using sp_logo.png */}
-          <div className="row g-4 justify-content-center mb-4">
-            {[
-              {
-                name: 'Omkar Chavan',
-                role: 'Accountant',
-                photo: spLogo,
-                badge: 'Core Team',
-                badgeColor: 'var(--accent-dark)',
-              },
-              {
-                name: 'Siddhesh Mane',
-                role: 'Billing Executive',
-                photo: spLogo,
-                badge: 'Core Team',
-                badgeColor: 'var(--accent-dark)',
-              },
-              {
-                name: 'Kunal Chavan',
-                role: 'Billing Executive',
-                photo: spLogo,
-                badge: 'Core Team',
-                badgeColor: 'var(--accent-dark)',
-              },
-            ].map((member, i) => (
-              <div key={i} className="col-lg-3 col-md-4 col-sm-6">
-                <TeamCard member={member} />
-              </div>
-            ))}
-          </div>
+         {/* Core Team Section */}
+          <div style={{
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-lg)',
+            padding: '2rem',
+            background: '#fff',
+            marginBottom: '2rem',
+          }}>
+            <div className="text-center mb-4">
+              <div className="section-eyebrow">Core Team</div>
+              <div className="divider-accent center" />
+            </div>
 
-          {/* Row 3 — Senior & Specialized (2 centered) - using sp_logo.png */}
-          <div className="row g-4 justify-content-center mb-5">
-            {[
-              {
-                name: 'Arun More',
-                role: 'General Manager',
-                note: '40+ years of experience',
-                photo: spLogo,
-                badge: 'Senior',
-                badgeColor: '#2d5c4a',
-              },
-              {
-                name: 'Bhauso Khot',
-                role: 'Waste Management Specialist',
-                photo: spLogo,
-                badge: 'Specialist',
-                badgeColor: '#2d5c4a',
-              },
-            ].map((member, i) => (
-              <div key={i} className="col-lg-3 col-md-5 col-sm-6">
-                <TeamCard member={member} />
-              </div>
-            ))}
+            {/* Row 2 — Billing & Accounts */}
+            <div className="row g-4 justify-content-center mb-4">
+              {[
+                {
+                  name: 'Omkar Chavan',
+                  role: 'Accountant',
+                  phone: '+91 80872 16381',
+                  experience: '5+ years',
+                  desc: 'Manages all financial records, tax filings, and accounts of the company with precision.',
+                },
+                {
+                  name: 'Siddhesh Mane',
+                  role: 'Billing Executive',
+                  phone: '+91 86240 01975',
+                  experience: '5+ years',
+                  desc: 'Handles billing operations, invoicing, and maintains accurate transaction records.',
+                },
+                {
+                  name: 'Kunal Chavan',
+                  role: 'Billing Executive',
+                  phone: '+91 98508 96234',
+                  experience: '5+ years',
+                  desc: 'Responsible for billing coordination, client accounts, and timely dispatch of invoices.',
+                },
+              ].map((member, i) => (
+                <div key={i} className="col-lg-3 col-md-4 col-sm-6">
+                  <StaffCard member={member} />
+                </div>
+              ))}
+            </div>
+
+            {/* Row 3 — Senior & Specialist */}
+            <div className="row g-4 justify-content-center">
+              {[
+                {
+                  name: 'Arun More',
+                  role: 'General Manager',
+                  phone: '+91 91582 49690',
+                  experience: '40+ years',
+                  desc: 'Senior leader with 40+ years of experience overseeing operations, production planning, and team management.',
+                },
+                {
+                  name: 'Bhauso Khot',
+                  role: 'Waste Management Specialist',
+                  phone: '+91 99213 12722',
+                  experience: '10+ years',
+                  desc: 'Manages sustainable waste practices, recycling processes, and eco-friendly operations across the facility.',
+                },
+                {
+                  name: 'Sachin Dudhagoankar',
+                  role: 'General Supervisor',
+                  phone: '+91 98225 92937',
+                  experience: '20+ years',
+                  desc: 'Supervises day-to-day floor operations, coordinates teams, and ensures production targets are consistently met.',
+                },
+              ].map((member, i) => (
+                <div key={i} className="col-lg-3 col-md-4 col-sm-6">
+                  <StaffCard member={member} />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Divider */}

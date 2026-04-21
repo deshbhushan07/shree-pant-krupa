@@ -4,6 +4,7 @@ import { FiMapPin, FiPhone, FiMail, FiArrowRight } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { getCategories } from '../services/enquiryService';
 import logo from '../assets/images/sp_logo.png';
+import { FiFileText } from "react-icons/fi";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -123,50 +124,56 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="col-lg-4 col-md-6">
-            <div className="footer-heading">Contact Info</div>
+  <div className="footer-heading">Contact Info</div>
 
-            {/* ✅ FIXED MAP LINK */}
-            <a
-              href="https://maps.google.com/?q=Shri+Pant+Krupa+Paper+Board+Halsavade+Kolhapur"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: 'none' }}
-            >
-              <div className="footer-contact-item">
-                <FiMapPin className="footer-contact-icon" />
-                <span>
-                  GATE NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416202, India
-                </span>
-              </div>
-            </a>
+  {/* ✅ FIXED MAP LINK */}
+  <a
+    href="https://maps.google.com/?q=Shri+Pant+Krupa+Paper+Board+Halsavade+Kolhapur"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <div className="footer-contact-item">
+      <FiMapPin className="footer-contact-icon" />
+      <span>
+        GATE NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416202, India
+      </span>
+    </div>
+  </a>
 
-            <a href="tel:+917028082100" style={{ textDecoration: 'none' }}>
-              <div className="footer-contact-item">
-                <FiPhone className="footer-contact-icon" />
-                <span>+91 70280 82100</span>
-              </div>
-            </a>
+  <a href="tel:+917028082100" style={{ textDecoration: 'none' }}>
+    <div className="footer-contact-item">
+      <FiPhone className="footer-contact-icon" />
+      <span>+91 70280 82100</span>
+    </div>
+  </a>
 
-            <a href="mailto:shripantkrupapaperboard@gmail.com" style={{ textDecoration: 'none' }}>
-              <div className="footer-contact-item">
-                <FiMail className="footer-contact-icon" />
-                <span>shripantkrupapaperboard@gmail.com</span>
-              </div>
-            </a>
+  <a href="mailto:shripantkrupapaperboard@gmail.com" style={{ textDecoration: 'none' }}>
+    <div className="footer-contact-item">
+      <FiMail className="footer-contact-icon" />
+      <span>shripantkrupapaperboard@gmail.com</span>
+    </div>
+  </a>
 
-            {/* ✅ FIXED WhatsApp Contact */}
-            <a
-              href="https://wa.me/917028082100"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: 'none' }}
-            >
-              <div className="footer-contact-item">
-                <FaWhatsapp style={{ color: '#25d366', fontSize: '1rem' }} />
-                <span>+91 70280 82100</span>
-              </div>
-            </a>
-          </div>
+  {/* ✅ FIXED WhatsApp Contact */}
+  <a
+    href="https://wa.me/917028082100"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <div className="footer-contact-item">
+      <FaWhatsapp style={{ color: '#25d366', fontSize: '1rem' }} />
+      <span>+91 70280 82100</span>
+    </div>
+  </a>
+
+  {/* ✅ GST Number */}
+  <div className="footer-contact-item">
+    <FiFileText className="footer-contact-icon" />
+    <span>GST No: 27AHDPP3845L1ZX</span>
+  </div>
+</div>
 
         </div>
       </div>
