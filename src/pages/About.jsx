@@ -168,7 +168,7 @@ export default function About() {
                 paper board products to clients across India.
               </p>
               <p style={{ color: 'var(--text-mid)', lineHeight: 1.9, marginBottom: '1.75rem' }}>
-                Located at GAT NO 3, A-2, A/P Halsavade, Kolhapur — our facility is equipped with modern 
+                Located at GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur — our facility is equipped with modern 
                 manufacturing infrastructure to produce Kraft Paper, Mill Board, Duplex Board, Grey Board, and 
                 specialty packing boards across a wide range of GSM specifications.
               </p>
@@ -198,7 +198,7 @@ export default function About() {
                   { label: 'Company', value: 'Shri Pant Krupa Paper Board' },
                   { label: 'Proprietor', value: 'Shrikant D. Patil' },
                   { label: 'Business Type', value: 'Manufacturer / Trader' },
-                  { label: 'Location', value: 'Halsavade, Kolhapur, MH' },
+                  { label: 'Location', value: 'Halsavade, Near Five Star MIDC, Kolhapur, MH' },
                   { label: 'GSM Range', value: '200 – 550 GSM' },
                   { label: 'Products', value: 'Kraft, Mill Board, Sheet Cutting' },
                   { label: 'Delivery', value: 'Pan India' },
@@ -492,7 +492,7 @@ export default function About() {
             <div className="divider-accent center" />
             <h2 className="section-title">Find Us</h2>
             <p style={{ color: 'var(--text-mid)', display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center', marginTop: '0.5rem' }}>
-              <FiMapPin color="var(--accent)" /> GAT NO 3, A-2, A/P Halsavade, Kolhapur, Maharashtra – 416202
+              <FiMapPin color="var(--accent)" /> GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416202
             </p>
           </div>
           <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', height: 400, border: '1px solid var(--border)' }}>
