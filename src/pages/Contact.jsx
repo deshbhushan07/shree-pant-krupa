@@ -50,9 +50,9 @@ useEffect(() => {
 
               <div className="d-flex flex-column gap-3 mb-4">
                 {[
-                  { icon: <FiMapPin />, label: 'Address', value: 'GAT NO 3, A-2, A/P Halsavade, Kolhapur, Maharashtra - 416202, India' },
-                  { icon: <FiPhone />, label: 'Phone', value: '+91 98765 43210' },
-                  { icon: <FiMail />, label: 'Email', value: 'info@pantkriupapaperboard.com' },
+                  { icon: <FiMapPin />, label: 'Address', value: 'GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra - 416202, India' },
+                  { icon: <FiPhone />, label: 'Phone', value: '+91 9689102100, +91 7028082100' },
+                  { icon: <FiMail />, label: 'Email', value: 'shripantkrupapaperboard@gmail.com' },
                   { icon: <FiClock />, label: 'Business Hours', value: 'Mon-Sat: 9:00 AM - 7:00 PM' },
                 ].map((item, i) => (
                   <div key={i} className="contact-info-card fade-in" style={{ transitionDelay: `${i * 0.1}s` }}>
@@ -93,148 +93,6 @@ useEffect(() => {
               </div>
             </div>
           </div>
-
-          {/* Authorized Dealers */}
-          {!dealersLoading && dealers.length > 0 && (
-            
-              <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                <div className="section-eyebrow">Authorized Network</div>
-                <div className="divider-accent center" />
-                <h2 className="section-title">Our Dealers</h2>
-                <p style={{ color: 'var(--text-mid)', fontSize: '0.95rem', marginTop: '0.75rem' }}>
-                  Connect directly with our authorized dealers in your region
-                </p>
-             
-
-              <div className="row g-4">
-                {dealers.map((dealer, i) => (
-                  <div key={dealer.id} className="col-lg-4 col-md-6">
-                    <div
-                      style={{
-                        background: '#fff',
-                        border: '1px solid var(--border)',
-                        borderRadius: 'var(--radius-lg)',
-                        padding: '1.75rem',
-                        height: '100%',
-                        transition: 'all 0.3s ease',
-                        position: 'relative',
-                        overflow: 'hidden',
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.transform = 'translateY(-4px)';
-                        e.currentTarget.style.boxShadow = '0 16px 48px rgba(26,58,46,0.12)';
-                        e.currentTarget.style.borderColor = 'var(--accent)';
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = 'none';
-                        e.currentTarget.style.borderColor = 'var(--border)';
-                      }}
-                    >
-                      {/* Top accent line */}
-                      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%)' }} />
-
-                      {/* Header */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
-                        {dealer.photo ? (
-                          <img
-                            src={dealer.photo}
-                            alt={dealer.name}
-                            style={{ width: 54, height: 54, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--border)' }}
-                          />
-                        ) : (
-                          <div style={{
-                            width: 54, height: 54, borderRadius: '50%',
-                            background: 'var(--primary)', color: '#fff',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: '1.1rem', fontWeight: 700, fontFamily: 'var(--ff-heading)',
-                            flexShrink: 0,
-                          }}>
-                            {dealer.name?.charAt(0) || <FiUser size={20} />}
-                          </div>
-                        )}
-                        <div>
-                          <div style={{ fontFamily: 'var(--ff-heading)', fontSize: '1rem', fontWeight: 700, color: 'var(--primary-dark)', lineHeight: 1.2 }}>
-                            {dealer.name}
-                          </div>
-                          {dealer.company && (
-                            <div style={{ fontSize: '0.78rem', color: 'var(--accent)', fontWeight: 600, marginTop: 3 }}>
-                              {dealer.company}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Info rows */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginBottom: '1.5rem' }}>
-                        {dealer.area && (
-                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.83rem', color: 'var(--text-mid)' }}>
-                            <FiMapPin size={13} style={{ color: 'var(--accent)', marginTop: 2, flexShrink: 0 }} />
-                            <span>{dealer.area}{dealer.city ? `, ${dealer.city}` : ''}</span>
-                          </div>
-                        )}
-                        {dealer.phone && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.83rem', color: 'var(--text-mid)' }}>
-                            <FiPhone size={13} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-                            <a href={`tel:${dealer.phone}`} style={{ color: 'var(--text-dark)', fontWeight: 500 }}>
-                              {dealer.phone}
-                            </a>
-                          </div>
-                        )}
-                        {dealer.email && (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.83rem', color: 'var(--text-mid)' }}>
-                            <FiMail size={13} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-                            <a href={`mailto:${dealer.email}`} style={{ color: 'var(--text-dark)' }}>
-                              {dealer.email}
-                            </a>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Action buttons */}
-                      {dealer.phone && (
-                        <div style={{ display: 'flex', gap: '0.75rem' }}>
-                          <a
-                            href={`tel:${dealer.phone}`}
-                            style={{
-                              flex: 1, display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', gap: '0.4rem',
-                              padding: '0.6rem', borderRadius: 'var(--radius)',
-                              border: '1.5px solid var(--primary)', color: 'var(--primary)',
-                              fontSize: '0.8rem', fontWeight: 600, fontFamily: 'var(--ff-body)',
-                              textDecoration: 'none', transition: 'all 0.2s ease',
-                            }}
-                            onMouseEnter={e => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.color = '#fff'; }}
-                            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--primary)'; }}
-                          >
-                            <FiPhone size={13} /> Call
-                          </a>
-                          <a
-                            href={`https://wa.me/91${dealer.phone.replace(/\D/g, '')}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              flex: 1, display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', gap: '0.4rem',
-                              padding: '0.6rem', borderRadius: 'var(--radius)',
-                              background: '#25d366', color: '#fff',
-                              fontSize: '0.8rem', fontWeight: 600, fontFamily: 'var(--ff-body)',
-                              textDecoration: 'none', transition: 'opacity 0.2s ease',
-                              border: '1.5px solid #25d366',
-                            }}
-                            onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
-                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-                          >
-                            <FaWhatsapp size={14} /> WhatsApp
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Google Map */}
           <div className="mt-5 fade-in">

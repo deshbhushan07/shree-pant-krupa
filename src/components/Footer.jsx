@@ -135,7 +135,7 @@ export default function Footer() {
               <div className="footer-contact-item">
                 <FiMapPin className="footer-contact-icon" />
                 <span>
-                  GATE NO 3, A-2, A/P Halsavade, Kolhapur, Maharashtra – 416202, India
+                  GATE NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416202, India
                 </span>
               </div>
             </a>
@@ -147,10 +147,10 @@ export default function Footer() {
               </div>
             </a>
 
-            <a href="mailto:info@shreepantkrupapaperboard.com" style={{ textDecoration: 'none' }}>
+            <a href="mailto:shripantkrupapaperboard@gmail.com" style={{ textDecoration: 'none' }}>
               <div className="footer-contact-item">
                 <FiMail className="footer-contact-icon" />
-                <span>info@shreepantkrupapaperboard.com</span>
+                <span>shripantkrupapaperboard@gmail.com</span>
               </div>
             </a>
 
