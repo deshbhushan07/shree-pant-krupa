@@ -30,7 +30,7 @@ export default function Home() {
           <div className="row align-items-center text-center text-md-start">
             <div className="col-md-8">
               <p style={{ color: 'rgba(255,255,255,0.85)', margin: 0, fontSize: '0.95rem' }}>
-                📍 GATE NO 3, A-2, A/P Halsavade, Kolhapur, Maharashtra – 416202 &nbsp;|&nbsp; Proprietor: Shrikant D. Patil
+                📍 GATE NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416202 &nbsp;|&nbsp; Proprietor: Shrikant D. Patil
               </p>
             </div>
             <div className="col-md-4 text-md-end mt-2 mt-md-0">

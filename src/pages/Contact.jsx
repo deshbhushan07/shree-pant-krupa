@@ -51,7 +51,7 @@ useEffect(() => {
               <div className="d-flex flex-column gap-3 mb-4">
                 {[
                   { icon: <FiMapPin />, label: 'Address', value: 'GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra - 416202, India' },
-                  { icon: <FiPhone />, label: 'Phone', value: '+91 9689102100, +91 7028082100' },
+                  { icon: <FiPhone />, label: 'Phone', value: '+91 7028082100' },
                   { icon: <FiMail />, label: 'Email', value: 'shripantkrupapaperboard@gmail.com' },
                   { icon: <FiClock />, label: 'Business Hours', value: 'Mon-Sat: 9:00 AM - 7:00 PM' },
                 ].map((item, i) => (
