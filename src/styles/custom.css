@@ -1649,6 +1649,12 @@ img { max-width: 100%; height: auto; display: block; }
   .footer-custom { padding: 2.5rem 0 0; }
 }
 
+@media (max-width: 991px) {
+  .page-header {
+    padding: calc(70px + 6rem) 0 3.5rem !important;
+  }
+}
+
 @media (max-width: 576px) {
   /* Hero — compressed vertically */
   .hero-section {
