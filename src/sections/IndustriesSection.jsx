@@ -107,6 +107,14 @@ const TRUSTED_CLIENTS = [
     color: "#378ADD",
   },
   {
+  quote:
+    "We have been working with Pant Krupa for over 20 years, and their consistency in quality and commitment to timelines has never wavered. Their team understands our requirements well and ensures smooth coordination every time.",
+  name: "Deshbhushan & Rushikesh Roadlines",
+  location: "Kolhapur",
+  initials: "DR",
+  color: "#4CAF50",
+  },
+  {
     quote:
       "We appreciate the clean finish and strength of the boards we receive. It works well for our packaging needs, and we’ve seen a noticeable reduction in material wastage.",
     name: "Shree Packaging",
