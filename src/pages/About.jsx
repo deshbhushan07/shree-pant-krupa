@@ -492,7 +492,7 @@ export default function About() {
             <div className="divider-accent center" />
             <h2 className="section-title">Find Us</h2>
             <p style={{ color: 'var(--text-mid)', display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center', marginTop: '0.5rem' }}>
-              <FiMapPin color="var(--accent)" /> GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416202
+              <FiMapPin color="var(--accent)" /> GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416201
             </p>
           </div>
           <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', height: 400, border: '1px solid var(--border)' }}>

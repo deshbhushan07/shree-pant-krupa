@@ -7,7 +7,7 @@ import InquiryForm from '../components/InquiryForm';
 import { useScrollAnimation } from '../hooks/useAnimations';
 import { getDealers } from '../services/enquiryService';
 
-const WA_NUMBER = '919876543210';
+const WA_NUMBER = '917028082100';
 
 export default function Contact() {
   useScrollAnimation();
@@ -50,7 +50,7 @@ useEffect(() => {
 
               <div className="d-flex flex-column gap-3 mb-4">
                 {[
-                  { icon: <FiMapPin />, label: 'Address', value: 'GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra - 416202, India' },
+                  { icon: <FiMapPin />, label: 'Address', value: 'GAT NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra - 416201, India' },
                   { icon: <FiPhone />, label: 'Phone', value: '+91 7028082100' },
                   { icon: <FiMail />, label: 'Email', value: 'shripantkrupapaperboard@gmail.com' },
                   { icon: <FiClock />, label: 'Business Hours', value: 'Mon-Sat: 9:00 AM - 7:00 PM' },

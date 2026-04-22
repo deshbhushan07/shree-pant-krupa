@@ -136,7 +136,7 @@ export default function Footer() {
     <div className="footer-contact-item">
       <FiMapPin className="footer-contact-icon" />
       <span>
-        GATE NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416202, India
+        GATE NO 3, A-2, A/P Halsavade, Near Five Star MIDC, Kolhapur, Maharashtra – 416201, India
       </span>
     </div>
   </a>
