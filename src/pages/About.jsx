@@ -339,21 +339,21 @@ export default function About() {
               {[
                 {
                   name: 'Omkar Chavan',
-                  role: 'Accountant',
+                  role: 'Accounting Department',
                   phone: '+91 80872 16381',
                   experience: '5+ years',
                   desc: 'Manages all financial records, tax filings, and accounts of the company with precision.',
                 },
                 {
                   name: 'Siddhesh Mane',
-                  role: 'Billing Executive',
+                  role: 'Accounting Department',
                   phone: '+91 86240 01975',
                   experience: '5+ years',
                   desc: 'Handles billing operations, invoicing, and maintains accurate transaction records.',
                 },
                 {
                   name: 'Kunal Chavan',
-                  role: 'Billing Executive',
+                  role: 'Accounting Department',
                   phone: '+91 98508 96234',
                   experience: '5+ years',
                   desc: 'Responsible for billing coordination, client accounts, and timely dispatch of invoices.',
@@ -379,7 +379,7 @@ export default function About() {
                   name: 'Bhauso Khot',
                   role: 'Waste Management Specialist',
                   phone: '+91 99213 12722',
-                  experience: '10+ years',
+                  experience: '20+ years',
                   desc: 'Manages sustainable waste practices, recycling processes, and eco-friendly operations across the facility.',
                 },
                 {
