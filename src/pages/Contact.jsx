@@ -59,7 +59,9 @@ useEffect(() => {
                     <div className="contact-info-icon">{item.icon}</div>
                     <div>
                       <div style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-light)', marginBottom: '0.25rem' }}>{item.label}</div>
-                      <div style={{ fontSize: '0.9rem', color: 'var(--text-dark)', fontWeight: 500 }}>{item.value}</div>
+                      <div style={{ fontSize: '0.9rem', color: 'var(--text-dark)', fontWeight: 500, wordBreak: 'break-all', overflowWrap: 'anywhere' }}>
+                        {item.value}
+                      </div>
                     </div>
                   </div>
                 ))}
