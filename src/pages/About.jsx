@@ -345,7 +345,7 @@ export default function About() {
                   desc: 'Manages all financial records, tax filings, and accounts of the company with precision.',
                 },
                 {
-                  name: 'Siddhesh Mane',
+                  name: 'Siddesh Mane',
                   role: 'Accounting Department',
                   phone: '+91 86240 01975',
                   experience: '5+ years',
